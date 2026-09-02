@@ -1,4 +1,3 @@
-import React from "react";
 import { FiBriefcase, FiCheckCircle, FiClock, FiStar } from "react-icons/fi";
 
 interface ExperienceMatchCardProps {
@@ -37,7 +36,7 @@ export default function ExperienceMatchCard({
 
       {/* Main Experience Highlight Display */}
       <div className="flex flex-col items-center justify-center py-4 space-y-2 text-center">
-        <div className="p-4 bg-gradient-to-br from-indigo-50 to-blue-50 text-(--primaryBlue) rounded-full shadow-inner border border-indigo-100/80 mb-1">
+        <div className="p-4 bg-linear-to-br from-indigo-50 to-blue-50 text-(--primaryBlue) rounded-full shadow-inner border border-indigo-100/80 mb-1">
           <FiClock className="text-3xl" />
         </div>
 

@@ -42,28 +42,21 @@ export default function Analyzer() {
         <Analysis onReset={() => setActiveStep(0)} />
       ),
     },
-  ];
+  ]
+
+  
 
   return (
     <div className="mainDiv py-8 pt-16 min-h-screen flex flex-col items-center gap-10 space-y-8">
-      <div className="w-full flex flex-col items-center gap-8">
-        <Stepper steps={steps.map((s) => ({ id: s.id, label: s.label }))} 
+      <div className="w-full flex flex-col items-center gap-16">
+        <Stepper 
+          steps={steps.map((s) => ({ id: s.id, label: s.label }))} 
           activeStep={activeSteps} 
           onStepClick={(stepId) => setActiveStep(stepId)}/>
 
         <div className="w-full grid place-items-center">
           {steps[activeSteps].components}
         </div>
-      </div>
-
-      {/* Hero text */}
-      <div className="space-y-2 text-center max-w-2xl">
-        <h1 className="text-3xl font-bold text-(--primaryBlack)">
-          Turn Your Resume Into a Stronger Job Match.
-        </h1>
-        <p className="text-(--secondaryBlack)">
-          Get an instant AI-powered ATS-style score, matched skills, missing keywords, and actionable insights.
-        </p>
       </div>
     </div>
   );

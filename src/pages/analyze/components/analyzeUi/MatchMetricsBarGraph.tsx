@@ -1,47 +1,57 @@
-import React from "react";
-import { FiBriefcase, FiZap, FiBookOpen, FiTarget, FiBarChart2 } from "react-icons/fi";
+import { FaGraduationCap } from "react-icons/fa";
+import { FiBriefcase, FiZap, FiTarget, FiBarChart2 } from "react-icons/fi";
+import { GoProjectRoadmap } from "react-icons/go";
 
 interface MatchMetricsProps {
   expMatch?: number;
   skillsMatch?: number;
   eduMatch?: number;
   atsScore?: number;
+  projMatch?: number;
 }
 
 export default function MatchMetricsBarGraph({
   expMatch = 85,
   skillsMatch = 75,
   eduMatch = 90,
-  atsScore = 82
+  atsScore = 82,
+  projMatch = 95,
 }: MatchMetricsProps) {
   const metrics = [
-    {
-      label: "Experience Match",
-      value: expMatch,
-      icon: FiBriefcase,
-      color: "bg-emerald-500",
-      bgLight: "bg-emerald-50 text-emerald-700 border-emerald-200"
-    },
-    {
-      label: "Skills Matched",
-      value: skillsMatch,
-      icon: FiZap,
-      color: "bg-indigo-500",
-      bgLight: "bg-indigo-50 text-indigo-700 border-indigo-200"
-    },
-    {
-      label: "Education Match",
-      value: eduMatch,
-      icon: FiBookOpen,
-      color: "bg-blue-500",
-      bgLight: "bg-blue-50 text-blue-700 border-blue-200"
-    },
     {
       label: "ATS Score",
       value: atsScore,
       icon: FiTarget,
-      color: "bg-purple-500",
-      bgLight: "bg-purple-50 text-purple-700 border-purple-200"
+      color: "bg-(--primaryBlue)",
+      bgLight: "text-(--primaryBlue)"
+    },
+    {
+      label: "Experience",
+      value: expMatch,
+      icon: FiBriefcase,
+      color: "bg-(--primaryBlue)",
+      bgLight: "text-(--primaryBlue) "
+    },
+    {
+      label: "Skills",
+      value: skillsMatch,
+      icon: FiZap,
+      color: "bg-(--primaryBlue)",
+      bgLight: "text-(--primaryBlue)"
+    },
+    {
+      label: "Projects",
+      value: projMatch,
+      icon: GoProjectRoadmap,
+      color: "bg-(--primaryBlue)",
+      bgLight: "text-(--primaryBlue)"
+    },
+    {
+      label: "Education",
+      value: eduMatch,
+      icon: FaGraduationCap,
+      color: "bg-(--primaryBlue)",
+      bgLight: "text-(--primaryBlue)"
     }
   ];
 
@@ -57,10 +67,6 @@ export default function MatchMetricsBarGraph({
             <p className="text-xs text-slate-400">Sectional Compatibility Frequencies</p>
           </div>
         </div>
-
-        <span className="text-xs font-semibold px-3 py-1 bg-slate-100 text-slate-700 rounded-full">
-          Horizontal Metrics
-        </span>
       </div>
 
       <div className="space-y-4">
@@ -73,17 +79,16 @@ export default function MatchMetricsBarGraph({
                   <Icon className="text-slate-500 text-sm" />
                   {item.label}
                 </span>
-                <span className={`px-2 py-0.5 rounded-md font-bold text-[11px] border ${item.bgLight}`}>
-                  {item.value}%
-                </span>
               </div>
 
               {/* Horizontal Bar Track */}
-              <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5">
-                <div
-                  className={`h-full ${item.color} rounded-full transition-all duration-1000 ease-out`}
-                  style={{ width: `${item.value}%` }}
-                />
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5">
+                    <div className={`h-full ${item.color} rounded-full transition-all duration-1000 ease-out`} style={{ width: `${item.value}%` }}/>
+                </div>
+                <span className={`font-bold text-sm ${item.bgLight}`}>
+                  {item.value}%
+                </span>
               </div>
             </div>
           );

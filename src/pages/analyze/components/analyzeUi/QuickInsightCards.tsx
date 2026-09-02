@@ -1,4 +1,3 @@
-import React from "react";
 import { FiCheckCircle, FiAlertTriangle, FiZap, FiArrowRight } from "react-icons/fi";
 import { HiOutlineSparkles } from "react-icons/hi2";
 
@@ -58,42 +57,34 @@ export default function QuickInsightCards({ insights, onViewDetails }: QuickInsi
           const isGap = item.type === "gap";
 
           return (
-            <div
-              key={idx}
-              className={`p-5 rounded-3xl border shadow-sm flex flex-col justify-between space-y-3 transition-all hover:shadow-md ${
+            <div key={idx} className={`p-5 rounded-3xl border shadow-sm flex flex-col justify-between space-y-3 transition-all hover:shadow-md ${
                 isStrength
                   ? "bg-emerald-50/50 border-emerald-200"
                   : isGap
                   ? "bg-rose-50/50 border-rose-200"
                   : "bg-indigo-50/50 border-indigo-200"
-              }`}
-            >
+              }`}>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                       isStrength
                         ? "bg-emerald-100 text-emerald-800"
                         : isGap
                         ? "bg-rose-100 text-rose-800"
                         : "bg-indigo-100 text-indigo-800"
-                    }`}
-                  >
+                    }`}>
                     {isStrength && <FiCheckCircle className="text-emerald-600" />}
                     {isGap && <FiAlertTriangle className="text-rose-600" />}
                     {!isStrength && !isGap && <FiZap className="text-indigo-600" />}
                     {item.type}
                   </span>
+                  <span className="text-[11px] font-medium text-slate-500 flex items-center gap-1">
+                      {isStrength ? "Top Advantage" : isGap ? "Required Fix" : "Action Tip"}
+                  </span>
                 </div>
 
                 <h4 className="font-bold text-slate-900 text-sm leading-snug">{item.title}</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">{item.description}</p>
-              </div>
-
-              <div className="pt-2 border-t border-slate-200/40">
-                <span className="text-[11px] font-medium text-slate-500 flex items-center gap-1">
-                  {isStrength ? "🟢 Top Advantage" : isGap ? "🔴 Priority Fix" : "🔵 Action Tip"}
-                </span>
               </div>
             </div>
           );
