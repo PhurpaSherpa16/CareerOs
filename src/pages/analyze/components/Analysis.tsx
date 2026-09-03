@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Banner from "./analyzeUi/Banner";
 import Tab from "./analyzeUi/Tab";
 import SkillTab from "./analyzeUi/SkillTab";
@@ -11,36 +11,58 @@ import ErrorMessage from "../../../components/ErrorMessage";
 interface AnalysisProps {
   onReset: () => void,
   isPending: boolean
-  error: any
+  error: any,
+  data: any,
+  formError: any
 }
 
-export default function Analysis({onReset, isPending, error}: AnalysisProps) {
+export default function Analysis({onReset, isPending, error, data, formError}: AnalysisProps) {
   const [activeTab, setActiveTab] = useState<"overview" | "skills" | "insights" | "checklist">("overview");
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const data = JSON.parse(localStorage.getItem('analysisData') || '{}');
 
+  const livePayload = data?.data?.data || data?.data;
+  const storedData = livePayload && Object.keys(livePayload).length > 0
+    ? livePayload
+    : JSON.parse(localStorage.getItem('analysisData') || '{}');
 
+  const analysisData = storedData?.result?.data || storedData;
 
-  // Normalize nested response data structure from API or fallback
-  const analysisData = data?.aiData
+  useEffect(() => {
+    if (livePayload && Object.keys(livePayload).length > 0) {
+      const guestId = livePayload?.user?.id || livePayload?.guestId || livePayload?.newRecord?.guestId;
+      if (guestId) {
+        localStorage.setItem("guestId", guestId);
+      }
+      localStorage.setItem("analysisData", JSON.stringify(livePayload));
+    }
+  }, [data]);
 
   const score = analysisData?.atsScore ?? analysisData?.result?.score ?? 0;
 
-  const fit = analysisData.atsScore >= 90
+  const fit =
+    typeof analysisData?.fit === "object" && analysisData?.fit?.label
+      ? analysisData.fit.label
+      : typeof analysisData?.fit === "string"
+      ? analysisData.fit
+      : analysisData?.atsScore >= 90
       ? "Excellent Fit"
-      : analysisData.atsScore >= 70
+      : analysisData?.atsScore >= 70
       ? "Good Fit"
-      : analysisData.atsScore >= 50
+      : analysisData?.atsScore >= 50
       ? "Moderate Fit"
       : "Needs Improvement";
 
   const candidateName =
-    data?.newRecord?.resumeStructuredText?.contact?.name ||
+    storedData?.resumeStructuredText?.contact?.name ||
+    storedData?.newRecord?.resumeStructuredText?.contact?.name ||
+    analysisData?.resumeStructuredText?.contact?.name ||
     "Candidate";
 
   const jobTitle =
-    analysisData?.newRecord?.jobStructuredText?.jobTitle ||
+    storedData?.jobStructuredText?.jobInfo?.title ||
+    storedData?.newRecord?.jobStructuredText?.jobInfo?.title ||
+    analysisData?.jobStructuredText?.jobInfo?.title ||
     analysisData?.jobTitle ||
     "Target Role";
 
@@ -53,6 +75,17 @@ export default function Analysis({onReset, isPending, error}: AnalysisProps) {
   const matchedKeywords: string[] = Array.isArray(analysisData?.matchedKeywords)
     ? analysisData.matchedKeywords
     : [];
+  const missingKeywords: string[] = Array.isArray(analysisData?.missingKeywords)
+    ? analysisData.missingKeywords
+    : [];
+
+  const matchMetrics = analysisData?.matchMetrics || {};
+  const experienceMetric = analysisData?.experience || matchMetrics?.experience || {};
+  const skillsMetric = analysisData?.skills || matchMetrics?.skills || {};
+  const educationMetric = analysisData?.education || matchMetrics?.education || {};
+  const projectsMetric = analysisData?.projects || matchMetrics?.projects || {};
+
+  const experienceMatch = analysisData?.experienceMatch || {};
 
   const matchedCount = matchedSkills.length;
   const missingCount = missingSkills.length;
@@ -62,10 +95,6 @@ export default function Analysis({onReset, isPending, error}: AnalysisProps) {
     reqSkillsCount + prefSkillsCount > 0
       ? reqSkillsCount + prefSkillsCount
       : matchedCount + missingCount;
-
-  const matchPercentage = Math.round(
-    (matchedCount / (matchedCount + missingCount || 1)) * 100
-  );
 
   const summaryText =
     typeof analysisData?.result === "object" && analysisData?.result?.summary
@@ -92,9 +121,19 @@ export default function Analysis({onReset, isPending, error}: AnalysisProps) {
   const normalizedData = {
     ...analysisData,
     atsScore: score,
+    atsScoreReason: analysisData?.atsScoreReason || analysisData?.atsScore?.reason || "",
+    fit,
+    jobMatch: analysisData?.jobMatch?.percentage || 0,
+    matchMetrics,
+    experience: experienceMetric,
+    skills: skillsMetric,
+    education: educationMetric,
+    projects: projectsMetric,
     matchedSkills,
     missingSkills,
     matchedKeywords,
+    missingKeywords,
+    experienceMatch,
     insights: normalizedInsights,
     result: {
       score,
@@ -103,13 +142,19 @@ export default function Analysis({onReset, isPending, error}: AnalysisProps) {
       strengths: analysisData?.result?.strengths || matchedSkills.slice(0, 4),
       gaps: analysisData?.result?.gaps || missingSkills.slice(0, 3),
     },
-    resumeStructuredText: data?.newRecord?.resumeStructuredText?.contact?.name || {
-      contact: { name: candidateName },
-    },
-    jobStructuredText: analysisData?.jobStructuredText || {
-      jobTitle,
-    },
+    resumeStructuredText:
+      storedData?.resumeStructuredText ||
+      storedData?.newRecord?.resumeStructuredText || {
+        contact: { name: candidateName },
+      },
+    jobStructuredText:
+      storedData?.jobStructuredText ||
+      storedData?.newRecord?.jobStructuredText || {
+        jobInfo: { title: jobTitle },
+      },
   };
+
+  const matchPercentage = normalizedData?.jobMatch
 
   const handleCopySummary = () => {
     const summary = `ATS Score: ${score}% (${fit})\nCandidate: ${candidateName}\nJob: ${jobTitle}\nSummary: ${summaryText}`;
@@ -122,9 +167,14 @@ export default function Analysis({onReset, isPending, error}: AnalysisProps) {
     setCheckedItems((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  if (formError) return <ErrorMessage tryLogin={"/login"} message={'You’ve used all 3 free analyses. Sign up or log in to continue with unlimited analyses.'} 
+    title="Analysis Limit Reached"/>
   if (error) return <ErrorMessage onRetry={() => onReset()}/>;
 
-  if (isPending && (!data || !error)) return <AnalysisSkelation/>;
+  if (isPending) return <AnalysisSkelation/>;
+
+  console.log('guestId', localStorage.getItem('guestId'))
+  console.log('normalizedData', normalizedData)
 
   return (
     <div className="w-full mainDiv max-w-7xl! mx-auto space-y-16 animate-fadeIn">

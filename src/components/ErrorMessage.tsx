@@ -7,6 +7,7 @@ interface ErrorMessageProps {
   onRetry?: () => void;
   tryLaterLink?: string;
   onTryLater?: () => void;
+  tryLogin?: string;
 }
 
 export default function ErrorMessage({
@@ -14,6 +15,7 @@ export default function ErrorMessage({
   message = "An unexpected error occurred while processing your request. Please try again later.",
   onRetry,
   tryLaterLink,
+  tryLogin='/login',
   onTryLater,
 }: ErrorMessageProps) {
   return (
@@ -53,6 +55,18 @@ export default function ErrorMessage({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-(--primaryBlue) 
             hover:bg-(--primaryBlue)/90 text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer shadow-sm">
             Try later
+          </Link>
+        )}
+        {(tryLogin) && (
+          <Link to={tryLogin || "/login"} onClick={(e) => {
+            if (onTryLater) {
+                e.preventDefault();
+                onTryLater();
+              }
+            }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-(--primaryBlue) 
+            hover:bg-(--primaryBlue)/90 text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer shadow-sm">
+            Login
           </Link>
         )}
       </div>

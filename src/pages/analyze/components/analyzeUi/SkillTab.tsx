@@ -71,7 +71,7 @@ export default function SkillTab({activeTab, data}:{activeTab:string, data: any}
                     </div>
     
                     <div className="space-y-2">
-                        {data.jobStructuredText?.preferredSkills?.map((skill:any, i:any) => {
+                        {data.missingKeywords?.map((skill:any, i:any) => {
                         const isMatched = data.matchedSkills?.includes(skill);
                         return (
                             <div

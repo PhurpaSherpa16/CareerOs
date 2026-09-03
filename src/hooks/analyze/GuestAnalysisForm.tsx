@@ -10,6 +10,7 @@ export default function useGuestAnalysisForm() {
 
     const [jobDescriptionError, setJobDescriptionError] = useState<string>("")
     const [fileError, setFileError] = useState<string>("")
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
         const storedGuestId = localStorage.getItem("guestId")
@@ -65,21 +66,35 @@ export default function useGuestAnalysisForm() {
         }
     }
 
-    const handleAanlyze = (mutate: any) =>{
+    const handleAanlyze = (mutate: any) => {
         const formData = new FormData()
         const storedGuestId = localStorage.getItem("guestId") || tempModelData.guestId
         if (storedGuestId) {
             formData.append('guestId', storedGuestId)
         }
         formData.append('jobDescription', tempModelData.jobDescription)
-        if(tempModelData.selectedFile){
+        if (tempModelData.selectedFile) {
             formData.append('resume', tempModelData.selectedFile)
         }
 
         try {
-            mutate(formData)
-        } catch (error) {
-            console.log('handle analyze error', error)
+            mutate(formData, {
+                onSuccess: (res: any) => {
+                    const responsePayload = res?.data?.data || res?.data;
+                    const guestId = responsePayload?.user?.id || responsePayload?.guestId || responsePayload?.newRecord?.guestId;
+                    if (guestId) {
+                        localStorage.setItem("guestId", guestId);
+                    }
+                    if (responsePayload) {
+                        localStorage.setItem("analysisData", JSON.stringify(responsePayload));
+                    }
+                },
+                onError: (error: any) => {
+                    setError(error?.response?.data?.message || "Something went wrong. Please try again.")
+                }
+            })
+        } catch (error: any) {
+            setError(error?.response?.data?.message || "Something went wrong. Please try again.")
         }
     }
 
@@ -92,7 +107,7 @@ export default function useGuestAnalysisForm() {
 
 
   return {tempModelData, setTempModelData, jobDescriptionError, handleChange, 
-    handleFile, handleRemoveFile, validate, fileError, handleAanlyze
+    handleFile, handleRemoveFile, validate, fileError, handleAanlyze, error
     }
 }
 

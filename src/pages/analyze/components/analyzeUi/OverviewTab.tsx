@@ -92,6 +92,7 @@ const HalfOutlinePieChart = ({ value = 75 }: { value: number }) => {
   );
 };
 
+
 export default function OverviewTab({
   activeTab,
   score,
@@ -100,7 +101,7 @@ export default function OverviewTab({
   setActiveTab,
   matchedCount,
   missingCount,
-  matchPercentage,
+  matchPercentage=0,
   totalSkillCount
 }: any) {
   return (
@@ -185,14 +186,18 @@ export default function OverviewTab({
                 </div>
                 <div>
                     <span className="font-bold text-xl">
-                        75%
+                        {data?.experienceMatch?.matchPercentage !== undefined && data?.experienceMatch?.matchPercentage !== null
+                          ? `${data.experienceMatch.matchPercentage}%`
+                          : (data?.experience?.score ? `${data.experience.score}%` : '75%')}
                     </span>
                     <div className="flex items-center gap-1.5 my-1">
                     <div className="p-1 rounded bg-emerald-100/70 text-emerald-700">
                         <IoIosTime className="text-xs" />
                     </div>
                     <span className="text-xs font-bold text-slate-700">
-                        4+ Years Experience
+                        {data?.experienceMatch?.experience?.value
+                          ? `${data.experienceMatch.experience.value}+ ${data.experienceMatch.experience.timeType === 'month' ? 'Months' : 'Years'} Experience`
+                          : '4+ Years Experience'}
                     </span>
                     </div>
                 </div>
@@ -225,7 +230,7 @@ export default function OverviewTab({
                         <GrAlert className="text-yellow-600 text-xs" /> {skill}
                     </span>
                   ))}
-                  {data?.missingSkills?.map((skill: any, idx: any) => (
+                  {data?.missingKeywords?.map((skill: any, idx: any) => (
                     <span key={idx}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 text-red-700 text-xs font-semibold border border-red-200/60">
                       <FiX className="text-red-500 text-xs" /> {skill}
@@ -257,9 +262,10 @@ export default function OverviewTab({
 
             {/* Horizontal Bar Graph Section */}
             <MatchMetricsBarGraph
-              expMatch={85}
-              skillsMatch={matchPercentage}
-              eduMatch={90}
+              expMatch={data?.experience?.score ?? 85}
+              skillsMatch={data?.skills?.score ?? matchPercentage}
+              eduMatch={data?.education?.score ?? 90}
+              projMatch={data?.projects?.score ?? 95}
               atsScore={score}
             />
           </div>
