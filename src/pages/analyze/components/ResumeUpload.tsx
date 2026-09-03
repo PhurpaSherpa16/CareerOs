@@ -1,24 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { HiOutlineCloudUpload } from 'react-icons/hi';
 
 interface ResumeUploadProps {
     onNext?: () => void;
     selectedFile?: File | null;
     setSelectedFile?: (file: File | null) => void;
+    fileError?: string;
+    handleFile: (file: File) => void;
 }
 
-export default function ResumeUpload({ onNext, selectedFile: externalFile, setSelectedFile: setExternalFile }: ResumeUploadProps) {
-    const [internalFile, setInternalFile] = useState<File | null>(null);
-    const selectedFile = externalFile !== undefined ? externalFile : internalFile;
-    const setSelectedFile = setExternalFile || setInternalFile;
-
+export default function ResumeUpload({ onNext, selectedFile, handleFile, fileError }: ResumeUploadProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedFile(e.target.files[0]);
-        }
-    };
 
     const handleBoxClick = () => {
         fileInputRef.current?.click();
@@ -31,20 +23,13 @@ export default function ResumeUpload({ onNext, selectedFile: externalFile, setSe
         }
     };
 
+
     return (
         <div className="bg-(--white) p-8 sm:p-12 rounded-3xl border border-(--lightBlack)/20 w-full max-w-2xl flex flex-col items-center space-y-8 shadow-xl">
-            <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
-                accept=".pdf" 
-                className="hidden"
-            />
+            <input type="file" ref={fileInputRef} onChange={(e) => handleFile(e.target.files?.[0] as File)} accept=".pdf" className="hidden"/>
 
-            <div 
-                onClick={handleBoxClick} 
-                className="w-full border-2 border-dashed border-(--primaryBlue) bg-(--lightBlue)/40 hover:bg-(--lightBlue)/80 transition-all rounded-2xl p-8 sm:p-10 flex flex-col items-center justify-center text-center gap-4 cursor-pointer group"
-            >
+            <div onClick={handleBoxClick} 
+                className="w-full border-2 border-dashed border-(--primaryBlue) bg-(--lightBlue)/40 hover:bg-(--lightBlue)/80 transition-all rounded-2xl p-8 sm:p-10 flex flex-col items-center justify-center text-center gap-4 cursor-pointer group">
                 {/* Upload Icon */}
                 <div className="p-4 rounded-full bg-(--primaryBlue)/10 text-(--primaryBlue) group-hover:scale-110 transition-transform">
                     <HiOutlineCloudUpload className="text-4xl" />
@@ -66,17 +51,19 @@ export default function ResumeUpload({ onNext, selectedFile: externalFile, setSe
                 </p>
             </div>
 
+            {
+                fileError && (
+                    <p className="text-xs text-(--primaryRed) font-medium">{fileError}</p>
+                )
+            }
+
             {/* Next Button */}
-            <button 
-                type="button" 
-                disabled={!selectedFile}
-                onClick={handleNextClick}
+            <button type="button" disabled={!selectedFile} onClick={handleNextClick}
                 className={`w-full font-semibold py-3 px-6 rounded-xl transition-all ${
                     !selectedFile 
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none" 
                         : "bg-(--primaryBlue) hover:opacity-90 text-white cursor-pointer shadow-md shadow-(--primaryBlue)/20 active:scale-[0.99]"
-                }`}
-            >
+                }`}>
                 Next
             </button>
         </div>
