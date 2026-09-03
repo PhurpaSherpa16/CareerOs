@@ -11,6 +11,8 @@ export default function Index() {
           </div>
         </div>
         <Link to={'/analyze'} className='text-white bg-(--primaryBlue) px-4 py-2 rounded-md w-max'>Aanlyze Resume</Link>
+
+        
     </div>
   )
 }
