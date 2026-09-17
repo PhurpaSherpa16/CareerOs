@@ -6,6 +6,8 @@ import Register from "../pages/loginRegister/Register";
 import UserDashboard from "../pages/userDashboard/UserDashboard";
 import Analyzer from "../pages/analyze/Analyzer";
 import LoginRegisterLayout from "../layout/LoginRegisterLayout";
+import NotFound from "../pages/NotFound";
+import UserDashboardLayout from "../layout/UserDashboardLayout";
 
 
 export default function MainRoutes(){
@@ -13,13 +15,18 @@ export default function MainRoutes(){
         <Routes>
             <Route path="/" element={<MainLayout/>}>
                 <Route index element={<Index/>}/>
-                <Route path="/user-dashboard" element={<UserDashboard/>}/>
                 <Route path="/analyze" element={<Analyzer/>}/>
             </Route>
             <Route path="/" element={<LoginRegisterLayout/>}>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
             </Route>
+
+            <Route path="/user-dashboard" element={<UserDashboardLayout/>}>
+                <Route index element={<UserDashboard/>}/>
+            </Route>
+
+            <Route path="*" element={<NotFound/>}/>
         </Routes>
     )
 }

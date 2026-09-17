@@ -1,16 +1,24 @@
 import { useClerk, useUser } from "@clerk/react"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import useRegisterUser from "../../hooks/registerUser"
 import useGetAllResume from "../../hooks/getAllResume.hook"
+import { dashboardMockData } from "../../data/userDashboard.mock"
+import { Heading } from "../../components/Heading.UserDashboard"
+import TopJobMatch from "./components/TopJobMatchCard"
+import TotalResumeJobCard from "./components/TotalResume&JobCard"
+import AnalysisCard from "./components/AnalysisCard"
+import AtsInsight from "./components/AtsInsight"
+import RecentAcivity from "./components/RecentAcivity"
+import SkillSummary from "./components/SkillSummary"
+import AIResumeInsight from "./components/AIResumeInsight"
+
+
 export default function UserDashboard() {
     const {session, signOut} = useClerk()
     const {isLoaded, user} = useUser()
     const {register, loading: RegisterLoading, error:formError} = useRegisterUser('api/auth/register')
-
     const {resumes, loading:getAllResumeLoading, error:getAllResumeError} = useGetAllResume('resume/all')
-
-    console.log('resumes', resumes, getAllResumeLoading, getAllResumeError)
 
     const [loading, setLoading] = useState<string>('Loading...')
     const navigate = useNavigate()
@@ -40,35 +48,75 @@ export default function UserDashboard() {
     },[session, navigate])
 
     useEffect(()=>{
-        if (RegisterLoading) return setLoading('Loading...')
-        if (formError) return setLoading(formError)
-    },[RegisterLoading, formError])
+        if(getAllResumeLoading) return
+        if(getAllResumeError) return
+        if(RegisterLoading) return
+        if(formError) return
+        setLoading("")
+    },[getAllResumeLoading, getAllResumeError, RegisterLoading, formError])
 
     useEffect(()=>{
-        if (session) {
+        if (!session) {
             register().catch((err) => console.log("Register sync error: ", err))
         }
     },[session])
 
     if(!isLoaded) return <div className="grid gap-2 place-content-center h-screen w-screen">{loading}</div>
 
+    const mockData = dashboardMockData
+    const fullName = `${user?.firstName || "John"} ${user?.lastName || "Doe"}`
+    const analysisCardData = mockData?.analysis || []
+
+    const totalResume = mockData?.resumeUpload?.total
+    const toalJobSaved = mockData?.jobSaved?.total
+    const topJobMatchData = mockData?.topJobMatch
+    const aiATSInsightData = mockData?.ats
+    const recentAcivityData = mockData?.recentActivity
+    const skillData = mockData?.skills || []
+    const aiInsightData = mockData?.aiInsights.slice(0,3) || []
+
   return (
-    <div className="grid gap-2 place-content-center h-screen w-screen">
-        <h1>Welcome {user?.firstName || 'John'}</h1>
-        <p>{user?.primaryEmailAddress?.emailAddress}</p>
-        <button onClick={getToken}>Get Token</button>
-        <button onClick={handleLogout}>Logout</button>
+    <div className="min-h-screen w-full max-w-7xl mx-auto userDashboard space-y-12">
+        <header>
+            <h1 className="h1">Good Evening, {fullName}</h1>
+            <p className="text-(--secondaryBlack)">"Analyze your resume against a job description"</p>
+        </header>
 
-
-        <div>
-            {resumes?.map((resume: any) => (
-                <div key={resume._id}>
-                    <p>{resume.title}</p>
-                    <p>{resume.description}</p>
+        <div className="space-y-6">
+            <Heading label="Quick Summary"/>
+            {/* Quick Overall Summary  */}
+            <div className="flex gap-8 min-h-0 w-full">
+                <div className="space-y-4 h-auto flex flex-col justify-between w-full">
+                    <AnalysisCard analysisCardData={analysisCardData}/>
                 </div>
-            ))}
+
+                <div className="space-y-4 h-fit w-fit">
+                    <TotalResumeJobCard totalResume={totalResume} totalJobSaved={toalJobSaved}/>
+                    <TopJobMatch topJobMatchData={topJobMatchData}/>
+                </div>
+                
+                <div className="space-y-4 h-auto flex flex-col justify-between w-full">
+                    <AtsInsight aiInsightData={aiATSInsightData}/>
+                </div>
+            </div>
+
+            <div className="flex gap-8">
+                <div className="w-md">
+                    <RecentAcivity recentAcivityData={recentAcivityData} />
+                </div>
+                <div className="w-sm">
+                    <SkillSummary skillData={skillData}/>
+                </div>
+                <div className="w-sm">
+                    <AIResumeInsight aiInsightData={aiInsightData}/>
+                </div>
+            </div>
+
         </div>
     </div>
   )
 }
+
+
+
 

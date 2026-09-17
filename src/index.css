@@ -10,8 +10,11 @@
     --purple: #6363F9;
     --highlightColor : #0F172A;
     --green : #22C55E;
+    --darkGreen : #048734;
     --red : #B91C1C;
+    --darkRed : #7f0505;
     --yellow: #F59E0B;
+    --darkYellow: #dc8f0b;
     --white: #FFFFFF;
 }
 
@@ -31,6 +34,12 @@
         @apply
         cursor-pointer
     }
+
+    p{
+        @apply
+        text-(--secondaryBlack)
+        text-sm
+    }
     
 }
 
@@ -42,6 +51,25 @@
         min-[1400px]:px-0!
         max-w-7xl 2xl:max-w-425
         h-full overflow-hidden
+    }
+
+    .userDashboard{
+        @apply
+        py-8 pr-6 2xl:pr-10
+    }
+
+    .card{
+        @apply
+        bg-white
+        w-fit border border-slate-200 
+        rounded-xl shadow-md
+    }
+
+    .h1{
+        @apply
+        text-xl
+        font-bold
+        lg:text-[clamp(1rem,2vw,1.5rem)]
     }
 }
 
