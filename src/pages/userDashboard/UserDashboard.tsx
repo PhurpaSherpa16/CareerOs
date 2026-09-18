@@ -12,6 +12,7 @@ import AtsInsight from "./components/AtsInsight"
 import RecentAcivity from "./components/RecentAcivity"
 import SkillSummary from "./components/SkillSummary"
 import AIResumeInsight from "./components/AIResumeInsight"
+import RecentAnalysis from "./components/RecentAnalysis"
 
 
 export default function UserDashboard() {
@@ -63,10 +64,10 @@ export default function UserDashboard() {
 
     if(!isLoaded) return <div className="grid gap-2 place-content-center h-screen w-screen">{loading}</div>
 
-    const mockData = dashboardMockData
     const fullName = `${user?.firstName || "John"} ${user?.lastName || "Doe"}`
+    
+    const mockData = dashboardMockData
     const analysisCardData = mockData?.analysis || []
-
     const totalResume = mockData?.resumeUpload?.total
     const toalJobSaved = mockData?.jobSaved?.total
     const topJobMatchData = mockData?.topJobMatch
@@ -74,6 +75,10 @@ export default function UserDashboard() {
     const recentAcivityData = mockData?.recentActivity
     const skillData = mockData?.skills || []
     const aiInsightData = mockData?.aiInsights.slice(0,3) || []
+    const analysisData = mockData?.recentAnalyses || []
+    const resumesData = mockData?.resumes || []
+    const latestJobsData = mockData?.latestJobs || []
+
 
   return (
     <div className="min-h-screen w-full max-w-7xl mx-auto userDashboard space-y-12">
@@ -99,19 +104,25 @@ export default function UserDashboard() {
                     <AtsInsight aiInsightData={aiATSInsightData}/>
                 </div>
             </div>
+        </div>
 
-            <div className="flex gap-8">
-                <div className="w-md">
-                    <RecentAcivity recentAcivityData={recentAcivityData} />
-                </div>
-                <div className="w-sm">
+        <div className="space-y-6">
+            <Heading label="Recent Analysis"/>
+            <div className="w-full">
+                <RecentAnalysis recentAnalysisData={analysisData} resumesData={resumesData} latestJobsData={latestJobsData} />
+            </div>
+        </div>
+
+        <div className="space-y-6">
+            <Heading label="Suggested based on your activity"/>
+             <div className="flex gap-8">
+               <div className="w-sm">
                     <SkillSummary skillData={skillData}/>
                 </div>
                 <div className="w-sm">
                     <AIResumeInsight aiInsightData={aiInsightData}/>
                 </div>
             </div>
-
         </div>
     </div>
   )

@@ -18,20 +18,20 @@ export default function TopJobMatch({topJobMatchData}: TopJobMatchProps) {
     let relevenceColor: string;
     let textColor: string;
     if(JobRelevance?.toLowerCase() === 'high' && overJobMatchPercentage >= 80){
-        relevenceColor = '#22C55E'
+        relevenceColor = '#048734'
         textColor = 'text-(--darkGreen)'
     }
     else if(JobRelevance?.toLowerCase() === 'medium' && overJobMatchPercentage >= 60){
-        relevenceColor = '#F59E0B'
+        relevenceColor = '#dc8f0b'
         textColor = 'text-(--yellow)'
     }
     else if(JobRelevance?.toLowerCase() === 'low' && overJobMatchPercentage >= 40){
-        relevenceColor = '#B91C1C'
-        textColor = 'text-(--red)'
+        relevenceColor = '#7f0505'
+        textColor = 'text-(--darkRed)'
     }
     else{
-        relevenceColor = '#B91C1C'
-        textColor = 'text-(--red)'
+        relevenceColor = '#7f0505'
+        textColor = 'text-(--darkRed)'
     }
 
   return (

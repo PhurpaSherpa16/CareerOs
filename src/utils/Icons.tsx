@@ -7,6 +7,7 @@ import { IoShieldCheckmarkSharp } from 'react-icons/io5'
 import * as SiIcons from 'react-icons/si'
 import { MdOutlineFlashOn } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
+import { MdOutlineDocumentScanner } from "react-icons/md";
 
 
 
@@ -18,7 +19,8 @@ const IconList = {
     ai: HiMiniSparkles,
     shield: IoShieldCheckmarkSharp,
     light: MdOutlineFlashOn,
-    alert: GoAlert
+    alert: GoAlert,
+    analysis: MdOutlineDocumentScanner,
 }
 
 type IconName = keyof typeof IconList
