@@ -51,7 +51,9 @@ export default function TopJobMatch({topJobMatchData}: TopJobMatchProps) {
                         <span className="text-[11px] font-medium text-slate-400 truncate flex items-center gap-1">
                             <Icons name='office' size='xs'/>{jobCompany}
                         </span>
-                        <Link to={'/'} className='text-[10px] underline text-slate-400'>View</Link>
+                        <Link to={'/'} className='text-[10px] underline text-slate-400 hover:text-(--primaryBlue)'>
+                            <Icons name='eye' size='xs'/>
+                        </Link>
                     </div>
                 </div>
             </div>

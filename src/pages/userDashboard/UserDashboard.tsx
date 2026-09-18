@@ -1,6 +1,6 @@
 import { useClerk, useUser } from "@clerk/react"
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import useRegisterUser from "../../hooks/registerUser"
 import useGetAllResume from "../../hooks/getAllResume.hook"
 import { dashboardMockData } from "../../data/userDashboard.mock"
@@ -9,7 +9,6 @@ import TopJobMatch from "./components/TopJobMatchCard"
 import TotalResumeJobCard from "./components/TotalResume&JobCard"
 import AnalysisCard from "./components/AnalysisCard"
 import AtsInsight from "./components/AtsInsight"
-import RecentAcivity from "./components/RecentAcivity"
 import SkillSummary from "./components/SkillSummary"
 import AIResumeInsight from "./components/AIResumeInsight"
 import RecentAnalysis from "./components/RecentAnalysis"
@@ -72,7 +71,6 @@ export default function UserDashboard() {
     const toalJobSaved = mockData?.jobSaved?.total
     const topJobMatchData = mockData?.topJobMatch
     const aiATSInsightData = mockData?.ats
-    const recentAcivityData = mockData?.recentActivity
     const skillData = mockData?.skills || []
     const aiInsightData = mockData?.aiInsights.slice(0,3) || []
     const analysisData = mockData?.recentAnalyses || []
@@ -112,18 +110,19 @@ export default function UserDashboard() {
                 <RecentAnalysis recentAnalysisData={analysisData} resumesData={resumesData} latestJobsData={latestJobsData} />
             </div>
         </div>
-
+        
         <div className="space-y-6">
             <Heading label="Suggested based on your activity"/>
-             <div className="flex gap-8">
-               <div className="w-sm">
-                    <SkillSummary skillData={skillData}/>
+            <div className="flex flex-col lg:flex-row gap-6 w-full">
+                <div className="w-full lg:w-2/3">
+                    <SkillSummary resumeData={resumesData[0] || mockData?.resumes?.[0]} skillData={skillData}/>
                 </div>
-                <div className="w-sm">
+                <div className="w-full lg:w-1/3"> 
                     <AIResumeInsight aiInsightData={aiInsightData}/>
                 </div>
             </div>
         </div>
+        
     </div>
   )
 }

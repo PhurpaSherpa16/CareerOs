@@ -419,8 +419,8 @@ export const dashboardMockData = {
   latestJobs: [
   {
     id: "job-001",
-    title: "Senior Frontend Engineer",
-    company: "Nimbus Labs",
+    title: "Jr Frontend Engineer",
+    company: "Google",
     date: "2026-09-14",
     location: "Remote - Europe",
     employmentType: "Full-time",
@@ -460,7 +460,7 @@ export const dashboardMockData = {
   {
     id: "job-002",
     title: "Frontend Developer",
-    company: "Linear Labs",
+    company: "netflix",
     date: "2026-09-12",
     location: "Remote",
     employmentType: "Full-time",
@@ -599,13 +599,13 @@ export const dashboardMockData = {
 
   recentAnalyses :[
     {
-      id: "analysis-001",
+    id: "analysis-001",
 
     // Foreign Keys
     resumeId: "resume-001",
     jobId: "job-001",
 
-    createdAt: "2026-09-14",
+    createdAt: "2026-09-18",
 
     atsScore: 91,
     jobMatch: 88,
@@ -665,7 +665,7 @@ export const dashboardMockData = {
     resumeId: "resume-002",
     jobId: "job-002",
 
-    createdAt: "2026-09-12",
+    createdAt: "2026-09-17",
 
     atsScore: 89,
     jobMatch: 94,

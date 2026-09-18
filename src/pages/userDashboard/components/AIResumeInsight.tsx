@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card } from '../../../components/Card.UserDashboard'
 import Icons from '../../../utils/Icons'
 import { Link } from 'react-router-dom'
@@ -50,7 +49,9 @@ export default function AIResumeInsight({aiInsightData}:AIResumeInsightProps) {
                     })}
                 </div>
                 <div className='flex items-end justify-end'>
-                    <Link to="/" className='text-primaryBlue hover:underline text-[10px] underline text-slate-400'>View All</Link>
+                    <Link to='/' className="text-[11px] font-semibold text-(--primaryBlue) hover:underline">
+                        View All Insight →
+                    </Link>
                 </div>
             </div>
         </div>

@@ -1,13 +1,14 @@
 import React from 'react'
 import { PiHandbagSimpleBold, PiHandbagSimpleFill } from 'react-icons/pi'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
-import { FaFilePdf } from 'react-icons/fa'
+import { FaEye, FaFilePdf } from 'react-icons/fa'
 import { HiMiniSparkles } from 'react-icons/hi2'
 import { IoShieldCheckmarkSharp } from 'react-icons/io5'
 import * as SiIcons from 'react-icons/si'
 import { MdOutlineFlashOn } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
 import { MdOutlineDocumentScanner } from "react-icons/md";
+import { FiBarChart2, FiFileText, FiBriefcase } from 'react-icons/fi';
 
 
 
@@ -21,6 +22,10 @@ const IconList = {
     light: MdOutlineFlashOn,
     alert: GoAlert,
     analysis: MdOutlineDocumentScanner,
+    report: FiBarChart2,
+    resumeIcon: FiFileText,
+    jobIcon: FiBriefcase,
+    eye: FaEye,
 }
 
 type IconName = keyof typeof IconList

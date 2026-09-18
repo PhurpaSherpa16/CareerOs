@@ -34,7 +34,7 @@ export default function AnalysisCard({analysisCardData}: AnalysisCardProps) {
                             <h4 className="font-bold text-(--primaryBlue) text-base w-fit capitalize flex items-center gap-1" title={bestFitRole}>
                                 <Icons name='jobFill' size='sm'/>{bestFitRole}
                             </h4>
-                            <Link to={'/'} className="text-[10px] underline text-slate-400 tracking-wide cursor-pointer">View all Roles</Link>
+                            <Link to='/' className="text-[11px] font-semibold text-(--primaryBlue) hover:underline">View All Roles →</Link>
                         </div>
                     </div>
                 </div>
