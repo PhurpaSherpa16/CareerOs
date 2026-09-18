@@ -122,299 +122,314 @@ export const dashboardMockData = {
   ],
 
   resumes : [
-    {
-      id: "resume-001",
-      title: "Frontend Developer Resume",
-      name: "Phurpa_Sherpa_Frontend_Resume.pdf",
-      date: "2026-09-14",
-      atsScore: 91,
+  {
+    id: "resume-001",
+    title: "Frontend Developer Resume",
+    name: "Phurpa_Sherpa_Frontend_Resume.pdf",
+    date: "2026-09-14",
+    atsScore: 91,
 
-      skills: {
-        frontend: [
-          "React",
-          "JavaScript",
-          "TypeScript",
-          "Next.js",
-          "Tailwind CSS",
-          "HTML",
-          "CSS",
-          "Framer Motion",
-          "GSAP",
-        ],
+    summary:
+      "You have a strong frontend foundation with hands-on experience using React, JavaScript, TypeScript, Next.js, and Tailwind CSS, supported by experience with APIs, databases, and modern development tools. Your current experience demonstrates practical frontend development, while deeper production experience and advanced engineering practices remain areas to strengthen.",
 
-        backend: [
-          "Node.js",
-          "Express.js",
-          "REST API",
-          "Supabase",
-          "Prisma",
-        ],
+    skills: {
+      frontend: [
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "Next.js",
+        "Tailwind CSS",
+        "HTML",
+        "CSS",
+        "Framer Motion",
+        "GSAP",
+      ],
 
-        database: [
-          "PostgreSQL",
-          "Supabase",
-        ],
+      backend: [
+        "Node.js",
+        "Express.js",
+        "REST API",
+        "Supabase",
+        "Prisma",
+      ],
 
-        tools: [
-          "Git",
-          "GitHub",
-          "Figma",
-          "Vercel",
-          "Netlify",
-        ],
+      database: [
+        "PostgreSQL",
+        "Supabase",
+      ],
 
-        softSkills: [
-          "Communication",
-          "Problem Solving",
-          "Teamwork",
-          "Leadership",
-          "Time Management",
-        ],
-      },
+      tools: [
+        "Git",
+        "GitHub",
+        "Figma",
+        "Vercel",
+        "Netlify",
+      ],
 
-      workExperience: {
-        years: 1,
-        roles: [
-          {
-            company: "Youbloom",
-            role: "Frontend Developer Intern",
-            duration: "May 2026 - Present",
-          },
-        ],
-      },
+      softSkills: [
+        "Communication",
+        "Problem Solving",
+        "Teamwork",
+        "Leadership",
+        "Time Management",
+      ],
+    },
 
-      education: [
+    workExperience: {
+      years: 1,
+      roles: [
         {
-          degree: "BSc Hons in Computing",
-          institution: "Leeds Beckett University",
+          company: "Youbloom",
+          role: "Frontend Developer Intern",
+          duration: "May 2026 - Present",
         },
       ],
     },
 
-    {
-      id: "resume-002",
-      title: "Frontend + UI/UX Resume",
-      name: "Phurpa_Sherpa_UIUX_Resume.pdf",
-      date: "2026-09-10",
-      atsScore: 86,
-
-      skills: {
-        frontend: [
-          "React",
-          "JavaScript",
-          "TypeScript",
-          "HTML",
-          "CSS",
-          "Tailwind CSS",
-          "Framer Motion",
-        ],
-
-        backend: [
-          "Node.js",
-          "Express.js",
-          "REST API",
-        ],
-
-        database: [
-          "Supabase",
-          "PostgreSQL",
-        ],
-
-        design: [
-          "Figma",
-          "UI Design",
-          "UX Design",
-          "Wireframing",
-          "Prototyping",
-          "Design Systems",
-        ],
-
-        tools: [
-          "Git",
-          "GitHub",
-          "Vercel",
-        ],
-
-        softSkills: [
-          "Communication",
-          "Teamwork",
-          "Problem Solving",
-          "Creativity",
-        ],
+    education: [
+      {
+        degree: "BSc Hons in Computing",
+        institution: "Leeds Beckett University",
       },
+    ],
+  },
 
-      workExperience: {
-        years: 1,
-        roles: [
-          {
-            company: "Youbloom",
-            role: "Frontend Developer Intern",
-            duration: "May 2026 - Present",
-          },
-        ],
-      },
+  {
+    id: "resume-002",
+    title: "Frontend + UI/UX Resume",
+    name: "Phurpa_Sherpa_UIUX_Resume.pdf",
+    date: "2026-09-10",
+    atsScore: 86,
 
-      education: [
+    summary:
+      "You combine practical frontend development experience with UI/UX skills, including React, TypeScript, Tailwind CSS, Figma, prototyping, and design systems. This gives your profile a useful combination of implementation and design capabilities, while deeper professional experience and advanced frontend engineering remain areas to develop.",
+
+    skills: {
+      frontend: [
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "HTML",
+        "CSS",
+        "Tailwind CSS",
+        "Framer Motion",
+      ],
+
+      backend: [
+        "Node.js",
+        "Express.js",
+        "REST API",
+      ],
+
+      database: [
+        "Supabase",
+        "PostgreSQL",
+      ],
+
+      design: [
+        "Figma",
+        "UI Design",
+        "UX Design",
+        "Wireframing",
+        "Prototyping",
+        "Design Systems",
+      ],
+
+      tools: [
+        "Git",
+        "GitHub",
+        "Vercel",
+      ],
+
+      softSkills: [
+        "Communication",
+        "Teamwork",
+        "Problem Solving",
+        "Creativity",
+      ],
+    },
+
+    workExperience: {
+      years: 1,
+      roles: [
         {
-          degree: "BSc Hons in Computing",
-          institution: "Leeds Beckett University",
+          company: "Youbloom",
+          role: "Frontend Developer Intern",
+          duration: "May 2026 - Present",
         },
       ],
     },
 
-    {
-      id: "resume-003",
-      title: "React Developer Resume",
-      name: "Phurpa_Sherpa_React_Resume.pdf",
-      date: "2026-09-04",
-      atsScore: 82,
-
-      skills: {
-        frontend: [
-          "React",
-          "JavaScript",
-          "HTML",
-          "CSS",
-          "Tailwind CSS",
-          "React Hooks",
-        ],
-
-        backend: [
-          "Node.js",
-          "Express.js",
-          "REST API",
-        ],
-
-        database: [
-          "Supabase",
-          "PostgreSQL",
-        ],
-
-        tools: [
-          "Git",
-          "GitHub",
-          "Vercel",
-        ],
-
-        softSkills: [
-          "Communication",
-          "Teamwork",
-          "Problem Solving",
-        ],
+    education: [
+      {
+        degree: "BSc Hons in Computing",
+        institution: "Leeds Beckett University",
       },
+    ],
+  },
 
-      workExperience: {
-        years: 0,
-        roles: [],
-      },
+  {
+    id: "resume-003",
+    title: "React Developer Resume",
+    name: "Phurpa_Sherpa_React_Resume.pdf",
+    date: "2026-09-04",
+    atsScore: 82,
 
-      education: [
-        {
-          degree: "BSc Hons in Computing",
-          institution: "Leeds Beckett University",
-        },
+    summary:
+      "You have a practical foundation in React development, with hands-on knowledge of JavaScript, React Hooks, Tailwind CSS, REST APIs, Node.js, and databases. Your technical base is suitable for entry-level frontend opportunities, while TypeScript, testing, and professional experience are areas where further development can strengthen your profile.",
+
+    skills: {
+      frontend: [
+        "React",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Tailwind CSS",
+        "React Hooks",
+      ],
+
+      backend: [
+        "Node.js",
+        "Express.js",
+        "REST API",
+      ],
+
+      database: [
+        "Supabase",
+        "PostgreSQL",
+      ],
+
+      tools: [
+        "Git",
+        "GitHub",
+        "Vercel",
+      ],
+
+      softSkills: [
+        "Communication",
+        "Teamwork",
+        "Problem Solving",
       ],
     },
 
-    {
-      id: "resume-004",
-      title: "Software Engineer Resume",
-      name: "Phurpa_Sherpa_Software_Resume.pdf",
-      date: "2026-08-28",
-      atsScore: 77,
+    workExperience: {
+      years: 0,
+      roles: [],
+    },
 
-      skills: {
-        frontend: [
-          "React",
-          "JavaScript",
-          "HTML",
-          "CSS",
-        ],
-
-        backend: [
-          "Node.js",
-          "Express.js",
-          "REST API",
-        ],
-
-        database: [
-          "PostgreSQL",
-          "Supabase",
-        ],
-
-        tools: [
-          "Git",
-          "GitHub",
-        ],
-
-        softSkills: [
-          "Communication",
-          "Teamwork",
-          "Problem Solving",
-          "Leadership",
-        ],
+    education: [
+      {
+        degree: "BSc Hons in Computing",
+        institution: "Leeds Beckett University",
       },
+    ],
+  },
 
-      workExperience: {
-        years: 0,
-        roles: [],
-      },
+  {
+    id: "resume-004",
+    title: "Software Engineer Resume",
+    name: "Phurpa_Sherpa_Software_Resume.pdf",
+    date: "2026-08-28",
+    atsScore: 77,
 
-      education: [
-        {
-          degree: "BSc Hons in Computing",
-          institution: "Leeds Beckett University",
-        },
+    summary:
+      "You have a broad foundation across frontend and backend development, with experience in React, JavaScript, Node.js, REST APIs, PostgreSQL, and Supabase. Your range across the stack provides a good base for junior software roles, while professional experience and deeper knowledge of modern engineering practices are the main areas to build further.",
+
+    skills: {
+      frontend: [
+        "React",
+        "JavaScript",
+        "HTML",
+        "CSS",
+      ],
+
+      backend: [
+        "Node.js",
+        "Express.js",
+        "REST API",
+      ],
+
+      database: [
+        "PostgreSQL",
+        "Supabase",
+      ],
+
+      tools: [
+        "Git",
+        "GitHub",
+      ],
+
+      softSkills: [
+        "Communication",
+        "Teamwork",
+        "Problem Solving",
+        "Leadership",
       ],
     },
 
-    {
-      id: "resume-005",
-      title: "General Resume",
-      name: "Phurpa_Sherpa_Resume.pdf",
-      date: "2026-08-20",
-      atsScore: 73,
+    workExperience: {
+      years: 0,
+      roles: [],
+    },
 
-      skills: {
-        frontend: [
-          "HTML",
-          "CSS",
-          "JavaScript",
-          "React",
-        ],
-
-        backend: [
-          "Node.js",
-        ],
-
-        database: [
-          "Supabase",
-        ],
-
-        tools: [
-          "Git",
-          "GitHub",
-        ],
-
-        softSkills: [
-          "Communication",
-          "Teamwork",
-        ],
+    education: [
+      {
+        degree: "BSc Hons in Computing",
+        institution: "Leeds Beckett University",
       },
+    ],
+  },
 
-      workExperience: {
-        years: 0,
-        roles: [],
-      },
+  {
+    id: "resume-005",
+    title: "General Resume",
+    name: "Phurpa_Sherpa_Resume.pdf",
+    date: "2026-08-20",
+    atsScore: 73,
 
-      education: [
-        {
-          degree: "BSc Hons in Computing",
-          institution: "Leeds Beckett University",
-        },
+    summary:
+      "You have built a solid technical foundation through hands-on web development projects, with experience across JavaScript, React, HTML, CSS, Node.js, and Supabase. Your skills provide a clear starting point for frontend roles, while limited professional experience and depth in advanced technologies are the main areas to develop next.",
+
+    skills: {
+      frontend: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+      ],
+
+      backend: [
+        "Node.js",
+      ],
+
+      database: [
+        "Supabase",
+      ],
+
+      tools: [
+        "Git",
+        "GitHub",
+      ],
+
+      softSkills: [
+        "Communication",
+        "Teamwork",
       ],
     },
-  ],
+
+    workExperience: {
+      years: 0,
+      roles: [],
+    },
+
+    education: [
+      {
+        degree: "BSc Hons in Computing",
+        institution: "Leeds Beckett University",
+      },
+    ],
+  },
+],
 
   latestJobs: [
   {

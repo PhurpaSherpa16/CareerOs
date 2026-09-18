@@ -5,7 +5,7 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import { PiBagSimpleBold } from "react-icons/pi";
 import { FaMoneyBills, FaCirclePlus } from "react-icons/fa6";
 import { VscAccount } from "react-icons/vsc";
-import { MdOutlineSupportAgent } from "react-icons/md";
+import { MdOutlineDocumentScanner, MdOutlineSupportAgent } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
 import { RiDeepseekFill, RiMenuFoldFill, RiMenuUnfoldFill } from "react-icons/ri";
 
@@ -319,6 +319,11 @@ const MenuList: { title: string; items: MenuItem[] }[] = [
       {
         title: "Manage",
         items: [
+          {
+            title: "Analysis",
+            icon: MdOutlineDocumentScanner,
+            path: "/analysis",
+          },
           {
             title: "My Resume",
             icon: AiOutlineFilePdf,

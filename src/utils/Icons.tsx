@@ -9,6 +9,7 @@ import { MdOutlineFlashOn } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
 import { MdOutlineDocumentScanner } from "react-icons/md";
 import { FiBarChart2, FiFileText, FiBriefcase } from 'react-icons/fi';
+import { LuScanSearch } from "react-icons/lu";
 
 
 
@@ -26,6 +27,7 @@ const IconList = {
     resumeIcon: FiFileText,
     jobIcon: FiBriefcase,
     eye: FaEye,
+    scan: LuScanSearch,
 }
 
 type IconName = keyof typeof IconList
