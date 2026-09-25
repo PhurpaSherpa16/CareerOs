@@ -9,7 +9,7 @@ export default function TotalResumeJobCard({totalResume=10, totalJobSaved=10}: {
                     <h3 className="text-2xl font-bold text-center">{totalResume || 10}</h3>
                 </div>
                 <div className="w-fit">
-                    <h3 className="text-sm tracking-wide text-slate-400">Resume <br /> Upload</h3>
+                    <h3 className="text-sm tracking-wide text-slate-400">Resumes <br /> Uploaded</h3>
                 </div>
             </div>
             <div className="border-r border-slate-200" />

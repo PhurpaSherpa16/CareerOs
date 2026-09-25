@@ -46,15 +46,11 @@
 @layer components{
     .mainDiv{
         @apply
-        mx-auto px-4 md:px-8 
-        xl:px-24 
-        min-[1400px]:px-0!
-        max-w-7xl 2xl:max-w-425
-        h-full overflow-hidden
-    }
-
-    .userDashboard{
-        @apply
+        min-h-screen
+        mx-auto
+        max-w-7xl 2xl:max-w-380
+        space-y-12
+        overflow-hidden
         py-8 pr-6 2xl:pr-10
     }
 

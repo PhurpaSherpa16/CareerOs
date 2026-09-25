@@ -79,7 +79,7 @@ export default function UserDashboard() {
 
 
   return (
-    <div className="min-h-screen w-full max-w-7xl mx-auto userDashboard space-y-12">
+    <div className="mainDiv">
         <header>
             <h1 className="h1">Good Evening, {fullName}</h1>
             <p className="text-(--secondaryBlack)">"Analyze your resume against a job description"</p>

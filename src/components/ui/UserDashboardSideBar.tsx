@@ -80,10 +80,7 @@ export default function UserDashboardSideBar({ menuOpen, setMenuOpen, user }: co
   const initial = firstName?.slice(0, 1) + lastName?.slice(0, 1);
 
   return (
-    <div
-      className={`relative flex flex-col py-4 ${
-        menuOpen ? "px-3" : "px-2"
-      } bg-(--white) h-full border border-(--lightBlack)/30 shadow-md space-y-6 rounded-md transition-all duration-300`} >
+    <div className={`relative flex flex-col py-4 ${menuOpen ? "px-3" : "px-2"} bg-(--white) h-full border border-(--lightBlack)/30 shadow-md space-y-6 rounded-md transition-all duration-300`} >
       {/* logo */}
       <div className={`relative flex items-center ${menuOpen ? "justify-between" : "justify-center"} px-1`}>
         <Link to="/" title="CareerOs" className="relative flex items-center gap-2.5 min-w-0">
@@ -322,12 +319,12 @@ const MenuList: { title: string; items: MenuItem[] }[] = [
           {
             title: "Analysis",
             icon: MdOutlineDocumentScanner,
-            path: "/analysis",
+            path: "/user-dashboard/all-analysis",
           },
           {
             title: "My Resume",
             icon: AiOutlineFilePdf,
-            path: "/resume",
+            path: "/user-dashboard/resume",
           },
           {
             title: "Saved Jobs",

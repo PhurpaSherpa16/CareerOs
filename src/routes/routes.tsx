@@ -8,6 +8,7 @@ import Analyzer from "../pages/analyze/Analyzer";
 import LoginRegisterLayout from "../layout/LoginRegisterLayout";
 import NotFound from "../pages/NotFound";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
+import AllAnalysis from "../pages/userDashboard/analysis/AllAnalysis";
 
 
 export default function MainRoutes(){
@@ -24,6 +25,7 @@ export default function MainRoutes(){
 
             <Route path="/user-dashboard" element={<UserDashboardLayout/>}>
                 <Route index element={<UserDashboard/>}/>
+                <Route path="all-analysis" element={<AllAnalysis/>}/>
             </Route>
 
             <Route path="*" element={<NotFound/>}/>
