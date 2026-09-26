@@ -11,16 +11,16 @@ export default function ResumePreview({tempData}: any) {
         (
             <div className="space-y-5 font-sans text-slate-900 bg-white p-6 rounded-xl border border-slate-200">
                 {/* Contact Header */}
-                {tempData.contact && (
+                {tempData && (
                     <div className="border-b border-slate-200 pb-4">
                     <h4 className="font-bold text-slate-900 text-sm tracking-wide uppercase">
-                        {tempData.contact.name || 'Candidate Contact Details'}
+                        {tempData.name || 'Candidate Contact Details'}
                     </h4>
                     <div className="flex flex-wrap gap-y-1 gap-x-4 text-xs text-slate-700 mt-1.5 font-medium">
-                        {tempData.contact.email && <span><strong className="font-semibold text-slate-900">Email:</strong> {tempData.contact.email}</span>}
-                        {tempData.contact.phone && <span><strong className="font-semibold text-slate-900">Phone:</strong> {tempData.contact.phone}</span>}
-                        {tempData.contact.github && <span><strong className="font-semibold text-slate-900">GitHub:</strong> {tempData.contact.github}</span>}
-                        {tempData.contact.linkedin && <span><strong className="font-semibold text-slate-900">LinkedIn:</strong> {tempData.contact.linkedin}</span>}
+                        {tempData.email && <span><strong className="font-semibold text-slate-900">Email:</strong> {tempData.email}</span>}
+                        {tempData.phone && <span><strong className="font-semibold text-slate-900">Phone:</strong> {tempData.phone}</span>}
+                        {tempData.github && <span><strong className="font-semibold text-slate-900">GitHub:</strong> {tempData.github}</span>}
+                        {tempData.linkedin && <span><strong className="font-semibold text-slate-900">LinkedIn:</strong> {tempData.linkedin}</span>}
                     </div>
                     </div>
                 )}
@@ -28,7 +28,7 @@ export default function ResumePreview({tempData}: any) {
                 {/* Summary Section */}
                 {tempData.summary && (
                     <div className="space-y-1.5">
-                    <h4 className="font-semibold text-slate-900 text-xs tracking-wider uppercase border-b border-slate-100 pb-1">
+                    <h4 className="font-bold text-slate-900 text-xs tracking-wider uppercase border-b border-slate-100 pb-1">
                         Professional Summary
                     </h4>
                     <p className="text-xs text-slate-800 leading-relaxed font-normal">
@@ -40,7 +40,7 @@ export default function ResumePreview({tempData}: any) {
                 {/* Skills Section */}
                 {tempData.skills && (
                     <div className="space-y-2">
-                    <h4 className="font-semibold text-slate-900 text-xs tracking-wider uppercase border-b border-slate-100 pb-1">
+                    <h4 className="font-bold text-slate-900 text-xs tracking-wider uppercase border-b border-slate-100 pb-1">
                         Skills & Technical Competencies
                     </h4>
                     <div className="flex flex-col space-y-4">
@@ -56,7 +56,7 @@ export default function ResumePreview({tempData}: any) {
 
                                 <div className="flex flex-wrap gap-2">
                                 {skills.map((skill: string, idx: number) => (
-                                    <span key={idx} className="px-2.5 py-1 bg-slate-100 text-slate-900 border border-slate-200 rounded text-xs font-semibold">
+                                    <span key={idx} className="px-2.5 py-1 bg-slate-100 text-slate-900 border border-slate-200 rounded text-xs font-light">
                                     {skill}
                                     </span>
                                 ))}

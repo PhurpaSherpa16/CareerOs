@@ -266,7 +266,7 @@ export default function AllAnalysis() {
                                                     ? 'bg-white text-(--primaryBlue) shadow-xs'
                                                     : 'text-slate-600 hover:text-slate-900'
                                                 }`}>
-                                            <Icons name="resumeIcon" />
+                                            <Icons name="resume" />
                                             Resume
                                         </button>
                                         <button type="button" onClick={() => setActiveTab('jd')}

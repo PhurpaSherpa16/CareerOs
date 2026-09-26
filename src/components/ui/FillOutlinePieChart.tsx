@@ -5,8 +5,10 @@ export const FullOutlinePieChart = ({value=0, total = 100, label='' }: { value: 
   const safeValue = Math.min(total, Math.max(0, value));
   const strokeDashoffset = circumference - (safeValue / total) * circumference;
 
-  const StargingStopColor = (value === 0 || value <= 50) ? "red" : (value <= 75) ? "lightBlue" : "lightgreen"
-  const EndinStopColor = (value === 0 || value <= 50) ? "yellow" : (value <= 75) ? "blue" : "orange"
+  const valuePercentage = (value/total)*100
+
+  const StargingStopColor = (valuePercentage === 0 || valuePercentage <= 50) ? "red" : (valuePercentage <= 75) ? "lightBlue" : "lightgreen"
+  const EndinStopColor = (valuePercentage === 0 || valuePercentage <= 50) ? "yellow" : (valuePercentage <= 75) ? "blue" : "orange"
 
   return (
     <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">

@@ -329,7 +329,7 @@ const MenuList: { title: string; items: MenuItem[] }[] = [
           {
             title: "Saved Jobs",
             icon: PiBagSimpleBold,
-            path: "/saved-jobs",
+            path: "/user-dashboard/saved-jobs",
           },
         ],
       },

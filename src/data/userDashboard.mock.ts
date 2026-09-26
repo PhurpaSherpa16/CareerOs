@@ -431,7 +431,7 @@ export const dashboardMockData = {
   },
 ],
 
-  latestJobs: [
+latestJobs: [
   {
     id: "job-001",
     title: "Jr Frontend Engineer",

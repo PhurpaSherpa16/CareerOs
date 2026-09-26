@@ -9,7 +9,8 @@ import { MdOutlineFlashOn } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
 import { MdOutlineDocumentScanner } from "react-icons/md";
 import { FiBarChart2, FiFileText, FiBriefcase, FiStar, FiMoreVertical, FiEye, FiDownload,
-    FiChevronDown, FiChevronRight, FiChevronUp
+    FiChevronDown, FiChevronRight, FiChevronUp, FiSearch,
+    FiChevronLeft, FiCheck, FiCopy
  } from 'react-icons/fi';
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { LuScanSearch } from "react-icons/lu";
@@ -18,8 +19,6 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { GrUserSettings } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { FiLayers } from "react-icons/fi";
-
-
 
 
 const IconList = {
@@ -33,7 +32,7 @@ const IconList = {
     alert: GoAlert,
     analysis: MdOutlineDocumentScanner,
     report: FiBarChart2,
-    resumeIcon: FiFileText,
+    file: FiFileText,
     jobIcon: FiBriefcase,
     eye: FaEye,
     scan: LuScanSearch,
@@ -48,7 +47,11 @@ const IconList = {
     downn: FiChevronDown,
     up: FiChevronUp,
     right: FiChevronRight,
-    layers: FiLayers
+    left: FiChevronLeft,
+    layers: FiLayers,
+    search: FiSearch,
+    copy: FiCopy,
+    check: FiCheck
 }
 
 type IconName = keyof typeof IconList

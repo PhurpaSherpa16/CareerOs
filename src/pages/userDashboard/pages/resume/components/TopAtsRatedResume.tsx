@@ -80,21 +80,26 @@ export default function TopAtsRatedResume({ data }: { data: any }) {
                         {/* Dropdown Menu (Opens on click or hover) */}
                         {isTopMenuOpen && (
                             <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-xl border border-slate-200 z-30 py-1.5 space-y-0.5 animate-in fade-in zoom-in-95">
-                            <button type="button" onClick={() => {setIsTopMenuOpen(false)}}
-                                className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-(--primaryBlue) flex items-center gap-2 cursor-pointer">
-                                <Icons name='view'/>
-                                Quick Preview
-                            </button>
-                            <button type="button" onClick={() => { navigate('/user-dashboard/all-analysis'); setIsTopMenuOpen(false); }}
-                                className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-amber-600 flex items-center gap-2 cursor-pointer">
-                                <Icons name='analyze' />
-                                Analyze Resume
-                            </button>
-                            <a href="/resume.pdf" download={data.name || 'Resume.pdf'} onClick={() => setIsTopMenuOpen(false)}
-                                className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-emerald-700 flex items-center gap-2 cursor-pointer">
-                                <Icons name='download' />
-                                Download Resume
-                            </a>
+                                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" type="button" onClick={() => {setIsTopMenuOpen(false)}}
+                                    className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-green-50 hover:text-green-700 flex items-center gap-2 cursor-pointer">
+                                    <Icons name='analysis'/>
+                                    View Report
+                                </a>
+                                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" type="button" onClick={() => {setIsTopMenuOpen(false)}}
+                                    className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-(--primaryBlue) flex items-center gap-2 cursor-pointer">
+                                    <Icons name='view'/>
+                                    View Resume
+                                </a>
+                                <button type="button" onClick={() => { navigate('/user-dashboard/all-analysis'); setIsTopMenuOpen(false); }}
+                                    className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-amber-600 flex items-center gap-2 cursor-pointer">
+                                    <Icons name='analyze' />
+                                    Analyze Resume
+                                </button>
+                                <a href="/resume.pdf" download={data.name || 'Resume.pdf'} onClick={() => setIsTopMenuOpen(false)}
+                                    className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-emerald-700 flex items-center gap-2 cursor-pointer">
+                                    <Icons name='download' />
+                                    Download Resume
+                                </a>
                             </div>
                         )}
                         </div>
