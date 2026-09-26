@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
     return (
         <nav className="sticky top-0 w-full min-h-full z-20 bg-(--white) border-b border-(--primaryBlack)/10 shadow-lg shadow-(--primaryBlack)/10">
-            <div className="mainDiv flex justify-between items-center min-h-18">
+            <div className="flex justify-between mx-auto max-w-7xl 2xl:max-w-380 py-4 overflow-hidden">
                 <Link to={'/'} className="flex gap-2 items-center">
                     <img src="/logo.svg" alt="logo" className="size-8"/>
                     <h1 className="text-xl font-bold text-(--primaryBlue)">CareerOs</h1>

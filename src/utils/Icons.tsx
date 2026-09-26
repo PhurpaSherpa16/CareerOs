@@ -8,8 +8,17 @@ import * as SiIcons from 'react-icons/si'
 import { MdOutlineFlashOn } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
 import { MdOutlineDocumentScanner } from "react-icons/md";
-import { FiBarChart2, FiFileText, FiBriefcase } from 'react-icons/fi';
+import { FiBarChart2, FiFileText, FiBriefcase, FiStar, FiMoreVertical, FiEye, FiDownload,
+    FiChevronDown, FiChevronRight, FiChevronUp
+ } from 'react-icons/fi';
+import { FaWandMagicSparkles } from "react-icons/fa6";
 import { LuScanSearch } from "react-icons/lu";
+import { LuRepeat1 } from "react-icons/lu";
+import { IoSettingsOutline } from "react-icons/io5";
+import { GrUserSettings } from "react-icons/gr";
+import { SlCalender } from "react-icons/sl";
+import { FiLayers } from "react-icons/fi";
+
 
 
 
@@ -28,6 +37,18 @@ const IconList = {
     jobIcon: FiBriefcase,
     eye: FaEye,
     scan: LuScanSearch,
+    repeat: LuRepeat1,
+    settings: IoSettingsOutline,
+    star: FiStar,
+    calender: SlCalender,
+    menuVerticalDot: FiMoreVertical,
+    analyze: FaWandMagicSparkles,
+    view: FiEye,
+    download: FiDownload,
+    downn: FiChevronDown,
+    up: FiChevronUp,
+    right: FiChevronRight,
+    layers: FiLayers
 }
 
 type IconName = keyof typeof IconList
@@ -36,9 +57,10 @@ type IconsProps = {
     name?: IconName,
     size?: 'lg' | 'md' | 'sm' | 'xs',
     logo?: string,
+    className?: string
 }
 
-export default function Icons({ name = 'office', logo, size = 'sm' }: IconsProps) {
+export default function Icons({ name='office', logo, size = 'sm', className}: IconsProps) {
     const iconSizeClass = {
         lg: 'size-8',
         md: 'size-6',
@@ -83,6 +105,7 @@ export default function Icons({ name = 'office', logo, size = 'sm' }: IconsProps
             if (aliasMap[lowerLogo]) {
                 SiComponent = iconsRecord[aliasMap[lowerLogo]]
             }
+            return <GrUserSettings className={iconSizeClass} />
         }
 
         if (SiComponent) {
@@ -92,7 +115,7 @@ export default function Icons({ name = 'office', logo, size = 'sm' }: IconsProps
 
     const Icon = IconList[name] || IconList.office
 
-    return <Icon className={iconSizeClass} />
+    return <Icon className={`${iconSizeClass} ${className}`} />
 }
 
 

@@ -6,10 +6,11 @@ interface AnalysisCardProps{
     ats: number,
     company:string,
     date:string,
-    onPreview: ()=>void
+    onPreview: ()=>void,
+    iconName?: string
 }
 
-export default function AnalysisCard({jobTitle, company, ats, date, onPreview}:AnalysisCardProps) {
+export default function AnalysisCard({jobTitle, company, ats, date, onPreview, iconName = 'analysis'}:AnalysisCardProps) {
     const formattedDate = DateFormatDistance(date as string);
 
     let matchScoreColor = ''
@@ -28,20 +29,20 @@ export default function AnalysisCard({jobTitle, company, ats, date, onPreview}:A
         matchScoreBgColor = 'bg-(--red)/10'
     }
   return (
-    <button onClick={onPreview} className='flex items-center justify-between w-full rounded-lg p-2 px-4'>
-        <div className='flex items-center gap-4'>
-            <div className='w-8 h-8 rounded-full bg-(--primaryBlue)/10 text-(--primaryBlue) flex items-center justify-center'>
-                <Icons name='analysis' size='sm'/>
+    <button onClick={onPreview} className='flex items-center justify-between w-full rounded-lg p-2 px-4 cursor-pointer text-left'>
+        <div className='flex items-center gap-4 min-w-0'>
+            <div className='w-8 h-8 rounded-full bg-(--primaryBlue)/10 text-(--primaryBlue) flex items-center justify-center shrink-0'>
+                <Icons name={(iconName as any) || 'analysis'} size='sm'/>
             </div>
-            <div className='flex flex-col gap-0.5'>
-                <h4 className='font-semibold text-sm text-left'>{jobTitle}</h4>
-                <span className='flex items-center gap-1 text-slate-500 text-[12px] capitalize'>
+            <div className='flex flex-col gap-0.5 min-w-0'>
+                <h4 className='font-semibold text-sm text-left truncate'>{jobTitle}</h4>
+                <span className='flex items-center gap-1 text-slate-500 text-[12px] capitalize truncate'>
                     <Icons logo={company} size='xs'/>
                     {company}
                 </span>
             </div>
         </div>
-        <div className='flex flex-col items-end gap-1'>
+        <div className='flex flex-col items-end gap-1 shrink-0 ml-2'>
             <span className='text-slate-500 text-[11px]'>{formattedDate}</span>
             <div className={`px-3 py-1 rounded-full ${matchScoreBgColor}`}>
                 <h4 className={`${matchScoreColor} font-semibold text-[11px] w-12 text-center`}>{ats} ATS</h4>

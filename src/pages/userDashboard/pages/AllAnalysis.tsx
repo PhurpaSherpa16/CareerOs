@@ -102,6 +102,15 @@ export default function AllAnalysis() {
                     </p>
                 </div>
             </header>
+            {/* Header Section */}
+            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="h1">All Analysis Reports</h1>
+                    <p className="text-(--secondaryBlack) text-xs sm:text-sm mt-1">
+                        Search, filter, and evaluate all your ATS resume optimization reports
+                    </p>
+                </div>
+            </header>
 
             <Heading label="Filter & Analysis History" />
 

@@ -5,6 +5,7 @@ import ReportPreviewTab from './ReportPreviewTab';
 import ResumePreviewTab from './ResumePreviewTab';
 import JobDescriptionTab from './JobDescriptionTab';
 import Icons from '../../../utils/Icons';
+import { Link } from 'react-router-dom';
 
 interface RecentAnalysisProps {
     recentAnalysisData: any[];
@@ -82,7 +83,7 @@ export default function RecentAnalysis({
                                     <Icons name='report'/>
                                     Report Preview
                                 </button>
-                                <button type="button" onClick={() => setActiveTab('resume')}
+                                {/* <button type="button" onClick={() => setActiveTab('resume')}
                                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${activeTab === 'resume'
                                             ? 'bg-white text-(--primaryBlue) shadow-xs'
                                             : 'text-slate-600 hover:text-slate-900'
@@ -97,7 +98,15 @@ export default function RecentAnalysis({
                                         }`}>
                                     <Icons name='jobIcon'/>
                                     Job Description (JD)
-                                </button>
+                                </button> */}
+                                {/* Analyze again button */}
+                                <Link to="/" className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${activeTab === 'resume'
+                                            ? 'bg-white text-(--primaryBlue) shadow-xs'
+                                            : 'text-slate-600 hover:text-slate-900'
+                                        }`}>
+                                    <Icons name='repeat'/>
+                                    Analyze Again
+                                </Link>
                             </div>
 
                             {/* Active Selection Title Indicator */}
