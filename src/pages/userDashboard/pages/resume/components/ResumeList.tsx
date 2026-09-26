@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { dashboardMockData } from '../../../../../data/userDashboard.mock';
 import { useMemo, useState } from 'react';
 import AnalysisCard from '../../../../../components/ui/AnalysisCard';
+import { formatDistanceToNow } from 'date-fns';
+import JobSortDropdown from '../../job/components/JobSortDropdown';
 
 export default function ResumeList() {
     const navigate = useNavigate();
@@ -15,20 +17,55 @@ export default function ResumeList() {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 1
     const [copied, setCopied] = useState(false);
+
+    const [sortBy, setSortBy] = useState<any>('newest');
+    
+    
+
+    const displayedResumes = useMemo(() => {
+        let result = [...resumesList];
+
+        // Filter
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+
+            result = result.filter((resume) => {
+                const titleMatch = (resume.title || '').toLowerCase().includes(query);
+                const nameMatch = (resume.name || '').toLowerCase().includes(query);
+                const summaryMatch = (resume.summary || '').toLowerCase().includes(query);
+
+                return titleMatch || nameMatch || summaryMatch;
+            });
+        }
+
+        // Sort
+        if (sortBy === 'newest') {
+            result.sort(
+                (a, b) =>
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+            );
+        } else if (sortBy === 'oldest') {
+            result.sort(
+                (a, b) =>
+                    new Date(a.date).getTime() - new Date(b.date).getTime()
+            );
+        } else if (sortBy === 'highestAts') {
+            result.sort(
+                (a, b) =>
+                    Number(b.atsScore ?? 0) - Number(a.atsScore ?? 0)
+            );
+        } else if (sortBy === 'lowestAts') {
+            result.sort(
+                (a, b) =>
+                    Number(a.atsScore ?? 0) - Number(b.atsScore ?? 0)
+            );
+        }
+
+        return result.length > 0 ? result : [] ;
+    }, [resumesList, searchQuery, sortBy]);
     
     const activeResumedata = dashboardMockData?.resumes.find((item: any) => item.id === activeResumeId)
 
-    // Filtered resumes
-    const filteredResumes = useMemo(() => {
-    return resumesList.filter((resume) => {
-        const titleMatch = (resume.title || '').toLowerCase().includes(searchQuery.toLowerCase());
-        const nameMatch = (resume.name || '').toLowerCase().includes(searchQuery.toLowerCase());
-        const summaryMatch = (resume.summary || '').toLowerCase().includes(searchQuery.toLowerCase());
-        return titleMatch || nameMatch || summaryMatch;
-    });
-    }, [resumesList, searchQuery]);
-    
-    // Handle resume selection
     const handleSelectResume = (resumeId: string) => {
     setActiveResumeId(resumeId);
     };
@@ -42,7 +79,9 @@ export default function ResumeList() {
         setTimeout(() => setCopied(false), 2000);
     };
 
-    console.log(resumesList)
+
+    const activeResumeDate = activeResumedata?.date ? formatDistanceToNow(new Date(activeResumedata.date), { addSuffix: true }) : 'N/A';
+    
 
   return (
     <section className="w-full">
@@ -52,25 +91,28 @@ export default function ResumeList() {
                 <div className="space-y-4 flex-1 overflow-y-auto pr-1">
                 <div className="space-y-3 border-b border-slate-200 pb-3">
                     <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-slate-800 flex items-center gap-2">
-                        <Icons name="resume" size="sm" />
-                        All Uploaded Resumes
-                    </h3>
-                    <span className="text-xs font-medium text-slate-500">
-                        {filteredResumes.length} {filteredResumes.length === 1 ? 'item' : 'items'}
-                    </span>
+                        <h3 className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+                            <Icons name="resume" size="sm" />
+                            All Uploaded Resumes
+                        </h3>
+                        <div className='flex items-center gap-2'>
+                            <span className="text-xs font-medium text-slate-500">
+                                {displayedResumes.length} {displayedResumes.length === 1 ? 'item' : 'items'}
+                            </span>
+                            <JobSortDropdown sortBy={sortBy} onSortChange={setSortBy} from={'resume'}/>
+                        </div>
                     </div>
 
                     <div className="relative">
-                    <Icons name='search' className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5" />
-                    <input type="text" placeholder="Search resumes..." value={searchQuery} 
-                    onChange={(e) => {setSearchQuery(e.target.value); setCurrentPage(1);}}
-                        className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-(--primaryBlue) bg-slate-50"
-                    />
+                        <Icons name='search' className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5" />
+                        <input type="text" placeholder="Search resumes..." value={searchQuery} 
+                        onChange={(e) => {setSearchQuery(e.target.value); setCurrentPage(1);}}
+                            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border-2 border-slate-200 focus:outline-none focus:border-(--primaryBlue) bg-slate-50"
+                        />
                     </div>
                 </div>
 
-                {resumesList.length === 0 ? (
+                {displayedResumes.length === 0 || !displayedResumes ? (
                     <div className="py-12 text-center text-slate-400 space-y-2">
                         <p className="text-xs">No resumes found matching your search.</p>
                         <button type="button" onClick={() => setSearchQuery('')} className="text-xs font-semibold text-(--primaryBlue) underline cursor-pointer">
@@ -79,11 +121,11 @@ export default function ResumeList() {
                     </div>
                 ) : (
                     <div className="space-y-4">
-                    {resumesList.map((resume) => {
+                    {displayedResumes.map((resume) => {
                         const isSelected = activeResumeId === resume.id;
                         return (
                         <div key={resume.id} className={`rounded-lg transition-all ${isSelected
-                            ? 'border-2 border-(--primaryBlue) ring-offset-1 bg-(--lightBlue)'
+                            ? 'border-2 border-(--primaryBlue) bg-(--lightBlue) '
                             : 'hover:bg-(--lightBlue) border border-(--primaryBlue)/10'
                             }`}>
                             <AnalysisCard 
@@ -124,44 +166,50 @@ export default function ResumeList() {
                 {activeResumedata ? (
                 <>
                     <div className="space-y-4">
-                    <div className="flex flex-col flex-wrap gap-3 pb-4">
-                        <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-(--primaryBlue)/10 text-(--primaryBlue) flex items-center justify-center shrink-0 border border-(--primaryBlue)/20">
-                            <Icons name="resume" size="md" />
-                        </div>
-                        <div>
-                            <h3 className="text-base font-bold text-slate-900">{activeResumedata.title}</h3>
-                            <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                            <span className="font-mono text-slate-600">{activeResumedata.name}</span>
+                        <div className="flex flex-col flex-wrap gap-3 pb-4">
+                            <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-(--primaryBlue)/10 text-(--primaryBlue) flex items-center justify-center shrink-0 border border-(--primaryBlue)/20">
+                                <Icons name="resume" size="md" />
+                            </div>
+                            <div>
+                                <h3 className="text-base font-bold text-slate-900">{activeResumedata.title}</h3>
+                                <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                                <span className="font-mono text-slate-600">{activeResumedata.name}</span>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                                <div className='flex items-center gap-3'>
+                                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                                        <FiAward className="w-3.5 h-3.5" />
+                                        {activeResumedata.atsScore} ATS Score
+                                    </span>
+
+                                    <button type="button" onClick={handleCopyRawText} className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer border border-slate-200">
+                                        {copied ? (
+                                        <>
+                                            <Icons name='check' className=" text-emerald-600" />
+                                            <span className="text-emerald-700 font-bold">Copied!</span>
+                                        </>
+                                        ) : (
+                                        <>
+                                            <Icons name='copy'/>
+                                            <span>Copy Raw Text</span>
+                                        </>
+                                        )}
+                                    </button>
+                                </div>
+
+                                <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+                                    Posted: {activeResumeDate}
+                                </span>
                             </div>
                         </div>
+
+                        <div className="w-full max-h-125 min-h-96 overflow-y-auto bg-slate-50 rounded-xl p-4 border border-slate-200 shadow-inner">
+                            <ResumePreview tempData={activeResumedata}/>
                         </div>
-
-                        <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                            <FiAward className="w-3.5 h-3.5" />
-                            {activeResumedata.atsScore} ATS Score
-                        </span>
-
-                        <button type="button" onClick={handleCopyRawText} className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer border border-slate-200">
-                            {copied ? (
-                            <>
-                                <Icons name='check' className=" text-emerald-600" />
-                                <span className="text-emerald-700 font-bold">Copied!</span>
-                            </>
-                            ) : (
-                            <>
-                                <Icons name='copy'/>
-                                <span>Copy Raw Text</span>
-                            </>
-                            )}
-                        </button>
-                        </div>
-                    </div>
-
-                    <div className="w-full max-h-125 min-h-96 overflow-y-auto bg-slate-50 rounded-xl p-4 border border-slate-200 shadow-inner">
-                        <ResumePreview tempData={activeResumedata}/>
-                    </div>
                     </div>
 
                     <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">

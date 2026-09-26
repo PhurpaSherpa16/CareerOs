@@ -37,7 +37,7 @@ export default function AnalysisCard({jobTitle, company, ats, date, onPreview, i
             <div className='flex flex-col gap-0.5 min-w-0'>
                 <h4 className='font-semibold text-sm text-left truncate'>{jobTitle}</h4>
                 <span className='flex items-center gap-1 text-slate-500 text-[12px] capitalize truncate'>
-                    <Icons logo={company} size='xs'/>
+                    <Icons company={company} size='xs'/>
                     {company}
                 </span>
             </div>

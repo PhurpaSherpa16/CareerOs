@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from 'date-fns';
 import Icons from '../../../../../utils/Icons';
 
 interface JobPreviewProps {
@@ -19,7 +20,7 @@ export default function JobPreview({ tempData }: JobPreviewProps) {
   const location = tempData.location || 'N/A';
   const employmentType = tempData.employmentType || 'Not Specified';
   const salary = tempData.salary || 'Not Specified';
-  const date = tempData.date || 'N/A';
+  const date = tempData.date ? formatDistanceToNow(new Date(tempData.date), { addSuffix: true }) : 'N/A';
 
   const requirements = tempData.requirements || {};
   const minExperience = requirements.minimumExperience !== undefined
@@ -78,7 +79,7 @@ export default function JobPreview({ tempData }: JobPreviewProps) {
                 key={idx}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 text-slate-900 border border-slate-200 rounded-md text-xs font-semibold shadow-2xs"
               >
-                <Icons logo={skill} size="xs" />
+                <Icons skill={skill} size="xs" />
                 <span>{skill}</span>
               </span>
             ))}
@@ -100,7 +101,7 @@ export default function JobPreview({ tempData }: JobPreviewProps) {
                 key={idx}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50/70 text-blue-900 border border-blue-200/80 rounded-md text-xs font-medium"
               >
-                <Icons logo={skill} size="xs" />
+                <Icons skill={skill} size="xs" />
                 <span>{skill}</span>
               </span>
             ))}

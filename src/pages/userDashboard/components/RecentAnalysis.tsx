@@ -116,7 +116,7 @@ export default function RecentAnalysis({
                                         {activeJob.title}
                                     </span>
                                     <span className="text-[11px] text-slate-500 flex items-center gap-1 justify-end">
-                                        <Icons logo={activeJob.company} size='xs'/>{activeJob.company}
+                                        <Icons company={activeJob.company} size='xs'/>{activeJob.company}
                                     </span>
                                 </div>
                             )}

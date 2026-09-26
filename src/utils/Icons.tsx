@@ -51,7 +51,8 @@ const IconList = {
     layers: FiLayers,
     search: FiSearch,
     copy: FiCopy,
-    check: FiCheck
+    check: FiCheck,
+    skill: GrUserSettings
 }
 
 type IconName = keyof typeof IconList
@@ -59,11 +60,12 @@ type IconName = keyof typeof IconList
 type IconsProps = {
     name?: IconName,
     size?: 'lg' | 'md' | 'sm' | 'xs',
-    logo?: string,
+    company?: string,
     className?: string
+    skill?:string
 }
 
-export default function Icons({ name='office', logo, size = 'sm', className}: IconsProps) {
+export default function Icons({ name, company, skill, size = 'sm', className}: IconsProps) {
     const iconSizeClass = {
         lg: 'size-8',
         md: 'size-6',
@@ -71,8 +73,36 @@ export default function Icons({ name='office', logo, size = 'sm', className}: Ic
         xs: 'size-3'
     }[size]
 
-    if (logo) {
-        const cleanLogo = logo.trim()
+    if (company) {
+        const cleanLogo = company.trim()
+        let formattedName = cleanLogo
+            .replace(/[\.\-\_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''))
+            .replace(/^(.)/, (c) => c.toUpperCase())
+
+        if (!formattedName.startsWith('Si')) {
+            formattedName = `Si${formattedName}`
+        }
+
+        const iconsRecord = SiIcons as Record<string, React.ComponentType<{ className?: string; color?: string }>>
+        
+        let SiComponent = iconsRecord[formattedName]
+
+        if (!SiComponent) {
+            const target = formattedName.toLowerCase()
+            const matchedKey = Object.keys(SiIcons).find(k => k.toLowerCase() === target)
+            if (matchedKey) {
+                SiComponent = iconsRecord[matchedKey]
+            }
+        }
+        
+        if (SiComponent) {
+            return <SiComponent className={iconSizeClass} />
+        }
+        
+        return <HiOutlineBuildingOffice2 className={iconSizeClass} />
+    }
+    if (skill) {
+        const cleanLogo = skill.trim()
         let formattedName = cleanLogo
             .replace(/[\.\-\_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''))
             .replace(/^(.)/, (c) => c.toUpperCase())
@@ -108,17 +138,21 @@ export default function Icons({ name='office', logo, size = 'sm', className}: Ic
             if (aliasMap[lowerLogo]) {
                 SiComponent = iconsRecord[aliasMap[lowerLogo]]
             }
-            return <GrUserSettings className={iconSizeClass} />
         }
-
+        
         if (SiComponent) {
             return <SiComponent className={iconSizeClass} />
         }
+        
+        return <GrUserSettings className={iconSizeClass} />
     }
 
-    const Icon = IconList[name] || IconList.office
+    if(name){
+        const Icon = IconList[name]
+        return <Icon className={`${iconSizeClass} ${className}`} />
+    }
 
-    return <Icon className={`${iconSizeClass} ${className}`} />
+    return <HiOutlineBuildingOffice2 className={`${iconSizeClass} ${className}`} />
 }
 
 

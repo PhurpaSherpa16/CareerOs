@@ -13,15 +13,15 @@ export default function ResumePreview({tempData}: any) {
                 {/* Contact Header */}
                 {tempData && (
                     <div className="border-b border-slate-200 pb-4">
-                    <h4 className="font-bold text-slate-900 text-sm tracking-wide uppercase">
-                        {tempData.name || 'Candidate Contact Details'}
-                    </h4>
-                    <div className="flex flex-wrap gap-y-1 gap-x-4 text-xs text-slate-700 mt-1.5 font-medium">
-                        {tempData.email && <span><strong className="font-semibold text-slate-900">Email:</strong> {tempData.email}</span>}
-                        {tempData.phone && <span><strong className="font-semibold text-slate-900">Phone:</strong> {tempData.phone}</span>}
-                        {tempData.github && <span><strong className="font-semibold text-slate-900">GitHub:</strong> {tempData.github}</span>}
-                        {tempData.linkedin && <span><strong className="font-semibold text-slate-900">LinkedIn:</strong> {tempData.linkedin}</span>}
-                    </div>
+                        <h4 className="font-bold text-slate-900 text-sm tracking-wide uppercase">
+                            {tempData.name || 'Candidate Contact Details'}
+                        </h4>
+                        <div className="flex flex-wrap gap-y-1 gap-x-4 text-xs text-slate-700 mt-1.5 font-medium">
+                            {tempData.email && <span><strong className="font-semibold text-slate-900">Email:</strong> {tempData.email}</span>}
+                            {tempData.phone && <span><strong className="font-semibold text-slate-900">Phone:</strong> {tempData.phone}</span>}
+                            {tempData.github && <span><strong className="font-semibold text-slate-900">GitHub:</strong> {tempData.github}</span>}
+                            {tempData.linkedin && <span><strong className="font-semibold text-slate-900">LinkedIn:</strong> {tempData.linkedin}</span>}
+                        </div>
                     </div>
                 )}
 

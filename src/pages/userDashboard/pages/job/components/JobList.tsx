@@ -35,6 +35,7 @@ export default function JobList() {
   }, [jobsList, searchQuery]);
 
   // Sort filtered jobs dynamically
+  // match job score later
   const sortedJobs = useMemo(() => {
     const sorted = [...filteredJobs];
     if (sortBy === 'newest') {
@@ -101,7 +102,7 @@ export default function JobList() {
                   <Icons name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5" />
                   <input type="text" placeholder="Search job title, company..."
                     value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-                    className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-(--primaryBlue) bg-slate-50"
+                    className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border-2 box-border border-slate-200 focus:outline-none focus:border-(--primaryBlue) bg-slate-50"
                   />
                 </div>
               </div>
@@ -176,7 +177,7 @@ export default function JobList() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-(--primaryBlue)/10 text-(--primaryBlue) flex items-center justify-center shrink-0 border border-(--primaryBlue)/20">
-                        <Icons logo={activeJobData.company !== 'Not Specified' ? activeJobData.company : undefined} name="job" size="md" />
+                        <Icons company={activeJobData.company !== 'Not Specified' ? activeJobData.company : undefined} name="job" size="md" />
                       </div>
                       <div>
                         <h3 className="text-base font-bold text-slate-900">{activeJobData.title || 'N/A'}</h3>

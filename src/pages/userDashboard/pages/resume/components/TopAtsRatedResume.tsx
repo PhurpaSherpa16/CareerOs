@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FullOutlinePieChart } from "../../../../../components/ui/FillOutlinePieChart";
 import Icons from "../../../../../utils/Icons";
+import { formatDistanceToNow } from "date-fns";
 
 type SkillCategories = Record<string, string[]>;
 
@@ -46,6 +47,8 @@ export default function TopAtsRatedResume({ data }: { data: any }) {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    const date = data.date ? formatDistanceToNow(new Date(data.date), { addSuffix: true }) : 'N/A';
     
   return (
     <section className="w-full">
@@ -66,7 +69,7 @@ export default function TopAtsRatedResume({ data }: { data: any }) {
                     <div className="flex items-center gap-3 relative" ref={menuRef}>
                         <div className="flex items-center gap-2 text-xs text-slate-500 mr-2">
                             <Icons name="calender"/>
-                            <span>Added {data.date}</span>
+                            <span>Posted on {date}</span>
                         </div>
 
                         {/* Three Dot Dropdown Button */}
@@ -182,7 +185,7 @@ export default function TopAtsRatedResume({ data }: { data: any }) {
                                 <div className="flex flex-wrap gap-1.5 pt-0.5">
                                     {domain?.skills?.map((skill: string, idx: number) => (
                                     <span key={idx} className="inline-flex items-center gap-1.5 px-2 py-1 bg-white text-slate-800 text-[11px] font-semibold rounded-md border border-slate-200 shadow-2xs">
-                                        <Icons logo={skill} size="xs" />
+                                        <Icons skill={skill} size="xs" />
                                         <span>{skill}</span>
                                     </span>
                                     ))}

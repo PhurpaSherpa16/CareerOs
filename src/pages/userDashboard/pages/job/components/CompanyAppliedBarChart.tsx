@@ -57,7 +57,7 @@ export default function CompanyAppliedBarChart({
 
   return (
     <Card>
-      <div className="p-5 space-y-4 h-full flex flex-col justify-between min-h-90">
+      <div className="p-5 space-y-4 h-full min-h-130 flex flex-col justify-between">
         {/* Header Section */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2">
@@ -107,42 +107,34 @@ export default function CompanyAppliedBarChart({
                     title={`${item.name}: ${item.applied_count} applied`}
                   >
                     {/* Applied Count Badge above Bar */}
-                    <div
-                      className={`text-[10px] font-extrabold mb-1 px-1.5 py-0.5 rounded transition-transform group-hover:-translate-y-0.5 ${
+                    <div className={`text-[10px] font-extrabold mb-1 px-1.5 py-0.5 rounded transition-transform group-hover:-translate-y-0.5 ${
                         isSelected
                           ? 'bg-slate-900 text-white shadow-2xs'
                           : 'bg-slate-100 text-slate-700 group-hover:bg-blue-50 group-hover:text-(--primaryBlue)'
-                      }`}
-                    >
+                      }`}>
                       {item.applied_count}
                     </div>
 
                     {/* Vertical Bar Track & Animated Fill */}
                     <div className="w-full max-w-9 bg-slate-100/90 rounded-t-xl overflow-hidden flex items-end h-full border border-slate-200/50">
-                      <div
-                        className={`w-full rounded-t-xl bg-linear-to-t ${gradientClass} transition-all duration-500 ease-out group-hover:brightness-110 ${
+                      <div className={`w-full rounded-t-xl bg-linear-to-t ${gradientClass} transition-all duration-500 ease-out group-hover:brightness-110 ${
                           isSelected ? 'ring-2 ring-blue-500 ring-offset-1 font-bold' : 'opacity-90 group-hover:opacity-100'
                         }`}
-                        style={{ height: `${heightPercent}%` }}
-                      ></div>
+                        style={{ height: `${heightPercent}%` }}></div>
                     </div>
 
                     {/* Company Icon & Name Below Bar */}
                     <div className="flex flex-col items-center gap-0.5 mt-2 shrink-0">
-                      <div
-                        className={`w-6 h-6 rounded-lg bg-white border flex items-center justify-center transition-all ${
+                      <div className={`w-6 h-6 rounded-lg bg-white border flex items-center justify-center transition-all ${
                           isSelected
                             ? 'border-(--primaryBlue) shadow-xs ring-1 ring-(--primaryBlue)/40'
                             : 'border-slate-200 group-hover:border-slate-300'
-                        }`}
-                      >
-                        <Icons logo={item.icon} size="xs" />
+                        }`}>
+                        <Icons company={item.icon} size="xs" />
                       </div>
-                      <span
-                        className={`text-[10px] font-semibold text-center truncate max-w-12 ${
+                      <span className={`text-[10px] font-semibold text-center truncate max-w-12 ${
                           isSelected ? 'text-(--primaryBlue) font-bold' : 'text-slate-600 group-hover:text-slate-900'
-                        }`}
-                      >
+                        }`}>
                         {item.name}
                       </span>
                     </div>

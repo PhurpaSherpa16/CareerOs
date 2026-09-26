@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import Icons from '../../../../../utils/Icons';
 
-export type SortOption = 'newest' | 'oldest' | 'highestMatch' | 'lowestMatch';
+export type SortOption = 'newest' | 'oldest' | 'highestMatch' | 'lowestMatch' | 'highestAts' | 'lowestAts';
 
 interface JobSortDropdownProps {
   sortBy: SortOption;
   onSortChange: (option: SortOption) => void;
+  from?: 'job' | 'resume';
 }
 
-export default function JobSortDropdown({ sortBy, onSortChange }: JobSortDropdownProps) {
+export default function JobSortDropdown({ sortBy, onSortChange, from = 'job' }: JobSortDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -31,12 +32,8 @@ export default function JobSortDropdown({ sortBy, onSortChange }: JobSortDropdow
   return (
     <div className="relative" ref={dropdownRef}>
       {/* 3-Dot Trigger Button */}
-      <button
-        type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="p-1 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer border border-slate-200/60 flex items-center justify-center"
-        title="Filter & Sort Options"
-      >
+      <button type="button" onClick={() => setIsOpen((prev) => !prev)} className="p-1 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer border border-slate-200/60 flex items-center justify-center"
+        title="Filter & Sort Options">
         <Icons name="menuVerticalDot" size="xs" />
       </button>
 
@@ -47,9 +44,6 @@ export default function JobSortDropdown({ sortBy, onSortChange }: JobSortDropdow
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
               Sort Job Descriptions
             </span>
-            <span className="text-[10px] font-semibold text-(--primaryBlue) bg-blue-50 px-1.5 py-0.5 rounded">
-              Active
-            </span>
           </div>
 
           <div className="space-y-1 text-xs font-medium text-slate-700">
@@ -58,40 +52,24 @@ export default function JobSortDropdown({ sortBy, onSortChange }: JobSortDropdow
               By Date
             </div>
 
-            <label
-              onClick={() => handleOptionSelect('newest')}
-              className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
+            <label onClick={() => handleOptionSelect('newest')} className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
                 sortBy === 'newest' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'
-              }`}
-            >
+              }`}>
               <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="jobSortToggle"
-                  value="newest"
+                <input type="radio" name="jobSortToggle" value="newest"
                   checked={sortBy === 'newest'}
                   onChange={() => handleOptionSelect('newest')}
-                  className="accent-(--primaryBlue)"
-                />
+                  className="accent-(--primaryBlue)"/>
                 <span>Sort by Newest</span>
               </div>
               {sortBy === 'newest' && <Icons name="check" size="xs" className="text-(--primaryBlue)" />}
             </label>
 
-            <label
-              onClick={() => handleOptionSelect('oldest')}
-              className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
-                sortBy === 'oldest' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'
-              }`}
-            >
+            <label onClick={() => handleOptionSelect('oldest')} className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
+                sortBy === 'oldest' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'}`}>
               <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="jobSortToggle"
-                  value="oldest"
-                  checked={sortBy === 'oldest'}
-                  onChange={() => handleOptionSelect('oldest')}
-                  className="accent-(--primaryBlue)"
+                <input type="radio" name="jobSortToggle" value="oldest"
+                  checked={sortBy === 'oldest'} onChange={() => handleOptionSelect('oldest')} className="accent-(--primaryBlue)"
                 />
                 <span>Sort by Oldest</span>
               </div>
@@ -103,42 +81,23 @@ export default function JobSortDropdown({ sortBy, onSortChange }: JobSortDropdow
               By Match Score
             </div>
 
-            <label
-              onClick={() => handleOptionSelect('highestMatch')}
-              className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
-                sortBy === 'highestMatch' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'
-              }`}
-            >
+            <label onClick={() => handleOptionSelect(from === 'job'? 'highestMatch':'highestAts')} className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
+                sortBy === 'highestMatch' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'}`}>
               <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="jobSortToggle"
-                  value="highestMatch"
-                  checked={sortBy === 'highestMatch'}
-                  onChange={() => handleOptionSelect('highestMatch')}
-                  className="accent-(--primaryBlue)"
-                />
-                <span>Highest Match (Desc)</span>
+                <input type="radio" name="jobSortToggle" value="highestMatch" checked={sortBy === 'highestMatch'} 
+                onChange={() => handleOptionSelect(from === 'job'? 'highestMatch':'highestAts')} className="accent-(--primaryBlue)"/>
+                <span>{from === 'job'? 'Highest Match (Desc)':'Highest ATS (Desc)'}</span>
               </div>
               {sortBy === 'highestMatch' && <Icons name="check" size="xs" className="text-(--primaryBlue)" />}
             </label>
 
-            <label
-              onClick={() => handleOptionSelect('lowestMatch')}
-              className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
-                sortBy === 'lowestMatch' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'
-              }`}
-            >
+            <label onClick={() => handleOptionSelect(from === 'job'? 'lowestMatch':'lowestAts')} className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
+                sortBy === 'lowestMatch' ? 'bg-blue-50/70 text-(--primaryBlue) font-bold' : 'hover:bg-slate-50 text-slate-700'}`}>
               <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="jobSortToggle"
-                  value="lowestMatch"
-                  checked={sortBy === 'lowestMatch'}
-                  onChange={() => handleOptionSelect('lowestMatch')}
-                  className="accent-(--primaryBlue)"
-                />
-                <span>Lowest Match (Asc)</span>
+                <input type="radio" name="jobSortToggle" value={from === 'job'? 'lowestMatch':'lowestAts'}
+                  checked={sortBy === 'lowestMatch'} onChange={() => handleOptionSelect(from === 'job'? 'lowestMatch':'lowestAts')} 
+                  className="accent-(--primaryBlue)"/>
+                <span>{from === 'job'? 'Lowest Match (Asc)':'Lowest ATS (Asc)'}</span>
               </div>
               {sortBy === 'lowestMatch' && <Icons name="check" size="xs" className="text-(--primaryBlue)" />}
             </label>

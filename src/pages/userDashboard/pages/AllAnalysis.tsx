@@ -5,7 +5,6 @@ import {
     FiFilter,
     FiChevronLeft,
     FiChevronRight,
-    FiRefreshCw,
     FiSliders,
 } from 'react-icons/fi';
 import { dashboardMockData } from '../../../data/userDashboard.mock';
@@ -93,15 +92,6 @@ export default function AllAnalysis() {
 
     return (
         <div className="mainDiv space-y-8">
-            {/* Header Section */}
-            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="h1">All Analysis Reports</h1>
-                    <p className="text-(--secondaryBlack) text-xs sm:text-sm mt-1">
-                        Search, filter, and evaluate all your ATS resume optimization reports
-                    </p>
-                </div>
-            </header>
             {/* Header Section */}
             <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -292,7 +282,7 @@ export default function AllAnalysis() {
                                         hover:text-indigo-700
                                         shadow-xs`}
                                         title="Analyze this resume with a new job description">
-                                        <FiRefreshCw className="w-3 h-3" />
+                                        <Icons name='repeat'/>
                                         Analyze Resume
                                     </Link>
 
@@ -307,7 +297,7 @@ export default function AllAnalysis() {
                                                 {activeJob.title}
                                             </span>
                                             <span className="text-[11px] text-slate-500 flex items-center gap-1 justify-start">
-                                                <Icons logo={activeJob.company} size="xs" />
+                                                <Icons company={activeJob.company} size="xs" />
                                                 {activeJob.company}
                                             </span>
                                         </div>

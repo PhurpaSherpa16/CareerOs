@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card } from '../../../../../components/Card.UserDashboard';
 import Icons from '../../../../../utils/Icons';
 import { dashboardMockData } from '../../../../../data/userDashboard.mock';
@@ -59,7 +59,7 @@ export default function ActiveCompanyJobDetails({
 
   return (
     <Card>
-      <div className="p-5 space-y-4 h-full flex flex-col justify-between">
+      <div className="p-5 space-y-4 h-full flex flex-col justify-between overflow-hidden">
         {/* Header & Company Selector Tabs */}
         <div className="space-y-3 border-b border-slate-100 pb-3">
           <div className="flex items-center justify-between">
@@ -102,12 +102,12 @@ export default function ActiveCompanyJobDetails({
         </div>
 
         {/* Main Job Overview Card */}
-        <div className="space-y-4 flex-1">
+        <div className="space-y-4 flex-1 max-h-100 overflow-auto">
           {/* Top Job Banner */}
           <div className="flex items-start justify-between gap-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
             <div className="flex items-start gap-3 min-w-0">
               <div className="w-11 h-11 rounded-xl bg-white shadow-xs border border-slate-200/70 flex items-center justify-center shrink-0 text-slate-800">
-                <Icons logo={company !== 'Not Specified' ? company : undefined} size="md" />
+                <Icons company={company !== 'Not Specified' ? company : undefined} size="md" />
               </div>
               <div className="space-y-1 min-w-0">
                 <h2 className="text-base font-bold text-slate-900 leading-snug truncate">
@@ -115,7 +115,7 @@ export default function ActiveCompanyJobDetails({
                 </h2>
                 <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 font-semibold">
                   <span className="flex items-center gap-1 text-(--primaryBlue)">
-                    <Icons logo={company !== 'Not Specified' ? company : undefined} size="xs" />
+                    <Icons company={company !== 'Not Specified' ? company : undefined} size="xs" />
                     {company}
                   </span>
                   <span>•</span>
@@ -177,7 +177,7 @@ export default function ActiveCompanyJobDetails({
                     key={idx}
                     className="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-slate-800 text-[11px] font-semibold rounded-md border border-slate-200 shadow-2xs"
                   >
-                    <Icons logo={skill} size="xs" />
+                    <Icons company={skill} size="xs" />
                     <span>{skill}</span>
                   </span>
                 ))}
@@ -197,7 +197,7 @@ export default function ActiveCompanyJobDetails({
                     key={idx}
                     className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded border border-slate-200"
                   >
-                    <Icons logo={skill} size="xs" />
+                    <Icons company={skill} size="xs" />
                     <span>{skill}</span>
                   </span>
                 ))}
