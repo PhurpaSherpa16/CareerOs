@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icons from '../../../../utils/Icons';
 import StatusIndicator from './components/StatusIndicator';
@@ -158,7 +158,10 @@ export default function AddNewAnalysis() {
                 {/* Tab 1: Resume */}
                 {activeTab === 'resume' && (
                     <div className="space-y-4">
-                        {/* Status Indicator placed inside Resume Tab */}
+                        <p className="text-[11px] text-slate-500">
+                            Upload your resume on the left. The live preview updates on the right.
+                        </p>
+                        {/* Status Indicator placed inside Resume Tab with Next button */}
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-3 gap-2">
                             <div className="flex items-center gap-2.5">
                                 <span className="text-xs font-bold text-slate-700">Resume Status:</span>
@@ -168,9 +171,27 @@ export default function AddNewAnalysis() {
                                     jobDescriptionAdded={isJobDescriptionAdded}
                                 />
                             </div>
-                            <p className="text-[11px] text-slate-500">
-                                Upload your resume on the left. The live preview updates on the right.
-                            </p>
+
+                            {/* Next / Scroll to Analyze Button */}
+                            <button
+                                type="button"
+                                disabled={!isResumeUploaded}
+                                onClick={() => {
+                                    if (!isResumeUploaded) return;
+                                    if (isReadyToAnalyze) {
+                                        scrollToAnalyzeButton();
+                                    } else {
+                                        setActiveTab('jobDescription');
+                                    }
+                                }}
+                                className={`px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
+                                    !isResumeUploaded
+                                        ? 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed'
+                                        : 'bg-(--primaryBlue) hover:bg-blue-700 text-white shadow-xs cursor-pointer active:scale-95'
+                                }`}
+                            >
+                                <span>{isReadyToAnalyze ? 'Scroll to Analyze ↓' : 'Next: Job Description →'}</span>
+                            </button>
                         </div>
 
                         {/* Resume Upload & Preview Side-by-Side (flex gap-16) */}
@@ -195,7 +216,7 @@ export default function AddNewAnalysis() {
                 {/* Tab 2: Job Description */}
                 {activeTab === 'jobDescription' && (
                     <div className="space-y-4">
-                        {/* Status Indicator placed inside Job Description Tab */}
+                        {/* Status Indicator placed inside Job Description Tab with Action button */}
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-3 gap-2">
                             <div className="flex items-center gap-2.5">
                                 <span className="text-xs font-bold text-slate-700">Job Description Status:</span>
@@ -205,9 +226,27 @@ export default function AddNewAnalysis() {
                                     jobDescriptionAdded={isJobDescriptionAdded}
                                 />
                             </div>
-                            <p className="text-[11px] text-slate-500">
-                                Paste the complete job description (min 100 words) to extract target skills and qualifications.
-                            </p>
+
+                            {/* Action / Scroll to Analyze Button */}
+                            <button
+                                type="button"
+                                disabled={!isJobDescriptionAdded}
+                                onClick={() => {
+                                    if (!isJobDescriptionAdded) return;
+                                    if (!isResumeUploaded) {
+                                        setActiveTab('resume');
+                                    } else {
+                                        scrollToAnalyzeButton();
+                                    }
+                                }}
+                                className={`px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
+                                    !isJobDescriptionAdded
+                                        ? 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed'
+                                        : 'bg-(--primaryBlue) hover:bg-blue-700 text-white shadow-xs cursor-pointer active:scale-95'
+                                }`}
+                            >
+                                <span>{!isResumeUploaded ? '← Back: Add Resume' : 'Scroll to Analyze ↓'}</span>
+                            </button>
                         </div>
 
                         <JobDescriptionForm

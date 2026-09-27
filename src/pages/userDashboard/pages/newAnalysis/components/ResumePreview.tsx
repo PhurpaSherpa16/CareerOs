@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Icons from '../../../../../utils/Icons';
 import { Card } from '../../../../../components/Card.UserDashboard';
 
@@ -39,7 +39,7 @@ export default function ResumePreview({ selectedFile }: ResumePreviewProps) {
   if (!selectedFile) {
     return (
       <Card>
-        <div className="p-8 sm:p-10 flex flex-col items-center justify-center text-center space-y-4 h-[480px]">
+        <div className="p-8 sm:p-10 flex flex-col items-center justify-center text-center space-y-4 h-120">
           <div className="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center border border-slate-200/80 shadow-xs">
             <Icons name="file" size="lg" />
           </div>
@@ -67,7 +67,7 @@ export default function ResumePreview({ selectedFile }: ResumePreviewProps) {
 
   return (
     <Card>
-      <div className="p-6 space-y-4 flex flex-col h-[520px]">
+      <div className="p-6 space-y-4 flex flex-col h-130">
         {/* Preview Header Toolbar */}
         <div className="flex items-center justify-between gap-3 border-b border-slate-200/80 pb-3 shrink-0">
           <div className="flex items-center gap-3 min-w-0">
