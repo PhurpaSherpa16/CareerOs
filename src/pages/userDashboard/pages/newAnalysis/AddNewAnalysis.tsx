@@ -74,6 +74,7 @@ export default function AddNewAnalysis() {
                     <div>
                         <h1 className="h1 flex items-center gap-2">
                             <span>New Analysis</span>
+                            
                         </h1>
                         <p className="text-(--secondaryBlack) w-xl text-xs sm:text-sm mt-1">
                             Upload your resume and provide a target job description to get instant ATS optimization and matching feedback.
