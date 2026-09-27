@@ -166,7 +166,7 @@ export default function UserDashboardSideBar({ menuOpen, setMenuOpen, user }: co
       {/* CTA Button */}
       <div className="border-t border-(--lightBlack)/30 pt-4">
         <Tooltip show={!menuOpen} label="New Analysis">
-          <CTA label={menuOpen ? "New Analysis" : ""} description="New Analysis" link="/user-dashboard" icon={<FaCirclePlus className="size-4 shrink-0" />}/>
+          <CTA label={menuOpen ? "New Analysis" : ""} description="New Analysis" link="/user-dashboard/new-analysis" icon={<FaCirclePlus className="size-4 shrink-0" />}/>
         </Tooltip>
       </div>
     </div>
@@ -277,9 +277,7 @@ function SidebarMenuItem({ item, isSubItem = false, menuOpen }: SidebarMenuItemP
   // Normal active/clickable menu item when expanded (menuOpen is true)
   return (
     <li className="relative">
-      <NavLink
-        to={item.path || "#"}
-        end={item.path === "/user-dashboard" || item.path === "/"}
+      <NavLink to={item.path || "#"} end={item.path === "/user-dashboard" || item.path === "/"}
         className={({ isActive }) =>`flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg transition-all duration-150 ${
             isSubItem ? "text-xs py-1.5" : ""} ${ isActive ? "bg-(--primaryBlue) text-white shadow-xs font-semibold" : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"}`}>
         {({ isActive }) => (

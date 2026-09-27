@@ -11,6 +11,7 @@ import UserDashboardLayout from "../layout/UserDashboardLayout";
 import AllAnalysis from "../pages/userDashboard/pages/AllAnalysis";
 import Resume from "../pages/userDashboard/pages/resume/Resume";
 import Job from "../pages/userDashboard/pages/job/Job";
+import AddNewAnalysis from "../pages/userDashboard/pages/newAnalysis/AddNewAnalysis";
 
 
 export default function MainRoutes() {
@@ -30,7 +31,7 @@ export default function MainRoutes() {
                 <Route path="all-analysis" element={<AllAnalysis/>} />
                 <Route path="resume" element={<Resume/>} />
                 <Route path="saved-jobs" element={<Job/>} />
-                
+                <Route path="new-analysis" element={<AddNewAnalysis/>} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

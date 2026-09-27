@@ -10,7 +10,7 @@ import { GoAlert } from "react-icons/go";
 import { MdOutlineDocumentScanner } from "react-icons/md";
 import { FiBarChart2, FiFileText, FiBriefcase, FiStar, FiMoreVertical, FiEye, FiDownload,
     FiChevronDown, FiChevronRight, FiChevronUp, FiSearch,
-    FiChevronLeft, FiCheck, FiCopy
+    FiChevronLeft, FiCheck, FiCopy, FiX, FiUploadCloud, FiTrash2, FiPlus, FiLink
  } from 'react-icons/fi';
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { LuScanSearch } from "react-icons/lu";
@@ -52,12 +52,19 @@ const IconList = {
     search: FiSearch,
     copy: FiCopy,
     check: FiCheck,
+    cross: FiX,
+    close: FiX,
+    upload: FiUploadCloud,
+    trash: FiTrash2,
+    plus: FiPlus,
+    link: FiLink,
+    building: HiOutlineBuildingOffice2,
     skill: GrUserSettings
 }
 
-type IconName = keyof typeof IconList
+export type IconName = keyof typeof IconList
 
-type IconsProps = {
+export type IconsProps = {
     name?: IconName,
     size?: 'lg' | 'md' | 'sm' | 'xs',
     company?: string,
@@ -154,6 +161,9 @@ export default function Icons({ name, company, skill, size = 'sm', className}: I
 
     return <HiOutlineBuildingOffice2 className={`${iconSizeClass} ${className}`} />
 }
+
+export const Icon = Icons;
+
 
 
 
