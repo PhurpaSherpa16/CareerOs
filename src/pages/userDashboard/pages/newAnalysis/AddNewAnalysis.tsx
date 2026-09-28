@@ -48,7 +48,7 @@ export default function AddNewAnalysis() {
 
         setTimeout(() => {
             setIsAnalyzing(false);
-            navigate('/analyze', {
+            navigate('/user-dashboard/report/1', {
                 state: {
                     file: resumeFile,
                     jobDescription,
