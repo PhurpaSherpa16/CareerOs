@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card } from '../../../../../components/Card.UserDashboard';
 import Icons from '../../../../../utils/Icons';
 import { dashboardMockData } from '../../../../../data/userDashboard.mock';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface JobItem {
   id: string;
@@ -30,8 +30,6 @@ export default function ActiveCompanyJobDetails({
   selectedCompanyName,
   jobs = dashboardMockData.latestJobs as JobItem[],
 }: ActiveCompanyJobDetailsProps) {
-  const navigate = useNavigate();
-
   // Filter jobs based on selected company, or default to all / first
   const filteredJobs = selectedCompanyName
     ? jobs.filter((j) => j.company?.toLowerCase() === selectedCompanyName.toLowerCase())
@@ -125,14 +123,10 @@ export default function ActiveCompanyJobDetails({
             </div>
 
             {/* Quick Action Button */}
-            <button
-              type="button"
-              onClick={() => navigate('/user-dashboard/all-analysis')}
-              className="px-3 py-1.5 bg-(--primaryBlue) hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition-colors cursor-pointer shrink-0"
-            >
+            <Link to="/user-dashboard/new-analysis" className="px-3 py-1.5 bg-(--primaryBlue) hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition-colors cursor-pointer shrink-0">
               <Icons name="analyze" size="xs" />
               Analyze
-            </button>
+            </Link>
           </div>
 
           {/* Key Job Specifications Grid (Type, Location, Salary, Experience) */}
@@ -173,10 +167,7 @@ export default function ActiveCompanyJobDetails({
             {requiredSkills.length > 0 ? (
               <div className="flex flex-wrap gap-1.5">
                 {requiredSkills.map((skill, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-slate-800 text-[11px] font-semibold rounded-md border border-slate-200 shadow-2xs"
-                  >
+                  <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-slate-800 text-[11px] font-semibold rounded-md border border-slate-200 shadow-2xs">
                     <Icons company={skill} size="xs" />
                     <span>{skill}</span>
                   </span>
@@ -211,14 +202,10 @@ export default function ActiveCompanyJobDetails({
           <span className="text-slate-500 font-medium">
             Active position ID: <span className="font-mono text-slate-700">{activeJob.id || 'N/A'}</span>
           </span>
-          <button
-            type="button"
-            onClick={() => navigate('/user-dashboard/all-analysis')}
-            className="text-xs font-bold text-(--primaryBlue) hover:underline flex items-center gap-1 cursor-pointer"
-          >
-            <span>Full Job Match Analysis</span>
-            <Icons name="right" size="xs" />
-          </button>
+          <Link to="/user-dashboard/report/123" className="text-xs font-bold text-(--primaryBlue) hover:underline flex items-center gap-1 cursor-pointer">
+            View Report
+            <Icons name="analysis" size="xs" />
+          </Link>
         </div>
       </div>
     </Card>

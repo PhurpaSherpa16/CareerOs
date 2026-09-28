@@ -1,14 +1,13 @@
 import { useMemo, useState } from 'react';
 import { Card } from '../../../../../components/Card.UserDashboard';
 import Icons from '../../../../../utils/Icons';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { dashboardMockData } from '../../../../../data/userDashboard.mock';
 import AnalysisCard from '../../../../../components/ui/AnalysisCard';
 import JobPreview from './JobPreview';
 import JobSortDropdown from './JobSortDropdown';
 
 export default function JobList() {
-  const navigate = useNavigate();
   const jobsList: any[] = dashboardMockData.latestJobs || [];
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -228,24 +227,15 @@ export default function JobList() {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => navigate('/user-dashboard/all-analysis')}
-                      className="inline-flex items-center gap-2 text-xs font-bold text-white bg-(--primaryBlue) hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors shadow-xs cursor-pointer"
-                    >
+                    <Link to="/user-dashboard/new-analysis" className="inline-flex items-center gap-2 text-xs font-bold text-white bg-(--primaryBlue) hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors shadow-xs cursor-pointer">
                       <Icons name="analyze" />
                       Analyze This Job
-                    </button>
+                    </Link>
 
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 px-4 py-2 rounded-lg transition-colors cursor-pointer"
-                    >
+                    <Link to="/user-dashboard/report/123" className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 px-4 py-2 rounded-lg transition-colors cursor-pointer">
                       <Icons name="analysis" />
-                      View Full Details
-                    </a>
+                      View Report
+                    </Link>
                   </div>
                 </div>
               </>

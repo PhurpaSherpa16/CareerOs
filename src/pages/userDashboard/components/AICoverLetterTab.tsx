@@ -99,7 +99,7 @@ Email: phurpasherpa@example.com | Phone: +1 (555) 019-2831`;
                     {/* Context tags */}
                     <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-[11px]">
                         <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-600 font-medium flex items-center gap-1">
-                            <Icons name="resumeIcon" size="xs" />
+                            <Icons name="resume" size="xs" />
                             {resume?.title || 'Selected Resume'}
                         </span>
                         <span className="text-slate-300">•</span>

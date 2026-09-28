@@ -100,7 +100,7 @@ export default function RecentAnalysis({
                                     Job Description (JD)
                                 </button> */}
                                 {/* Analyze again button */}
-                                <Link to="/" className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${activeTab === 'resume'
+                                <Link to="/user-dashboard/new-analysis" className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${activeTab === 'resume'
                                             ? 'bg-white text-(--primaryBlue) shadow-xs'
                                             : 'text-slate-600 hover:text-slate-900'
                                         }`}>

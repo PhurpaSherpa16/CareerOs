@@ -2,7 +2,7 @@ import { Card } from '../../../../../components/Card.UserDashboard';
 import Icons from '../../../../../utils/Icons';
 import { FiAward} from 'react-icons/fi';
 import ResumePreview from './ResumePreview';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { dashboardMockData } from '../../../../../data/userDashboard.mock';
 import { useMemo, useState } from 'react';
 import AnalysisCard from '../../../../../components/ui/AnalysisCard';
@@ -10,7 +10,6 @@ import { formatDistanceToNow } from 'date-fns';
 import JobSortDropdown from '../../job/components/JobSortDropdown';
 
 export default function ResumeList() {
-    const navigate = useNavigate();
     const resumesList: any[] = dashboardMockData.resumes || [];
     const [searchQuery, setSearchQuery] = useState('');
     const [activeResumeId, setActiveResumeId] = useState<string>(resumesList.length > 0 ? resumesList[0].id : []);
@@ -218,16 +217,16 @@ export default function ResumeList() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <button type="button" onClick={() => navigate('/user-dashboard/all-analysis')} 
+                        <Link to="/user-dashboard/new-analysis" 
                         className="inline-flex items-center gap-2 text-xs font-bold text-white bg-(--primaryBlue) hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors shadow-xs cursor-pointer">
                         <Icons name='analyze'/>
                         Analyze This
-                        </button>
+                        </Link>
 
-                        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 px-4 py-2 rounded-lg transition-colors cursor-pointer">
+                        <Link to="/user-dashboard/report/123" className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 px-4 py-2 rounded-lg transition-colors cursor-pointer">
                         <Icons name='analysis'/>
                         View Report
-                        </a>
+                        </Link>
 
                         <a href="/resume.pdf" download={activeResumedata.name || 'Resume.pdf'} className="inline-flex items-center gap-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs">
                         <Icons name='download'/>

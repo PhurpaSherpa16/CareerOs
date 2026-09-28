@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaWandMagicSparkles } from 'react-icons/fa6';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CompanyAppliedBarChart from './components/CompanyAppliedBarChart';
 import ActiveCompanyJobDetails from './components/ActiveCompanyJobDetails';
 import JobList from './components/JobList';
@@ -35,7 +35,7 @@ export default function Job() {
         <JobList />
       </section>
 
-      <div>
+      <div className='space-y-8'>
         <div className='flex items-center gap-2 pt-4'>
           <span className='text-sm text-(--secondaryBlack) font-semibold'>More activity</span>
           <hr className='flex-1 border border-slate-200'/>
