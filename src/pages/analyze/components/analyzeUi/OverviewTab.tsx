@@ -4,94 +4,8 @@ import MatchMetricsBarGraph from './MatchMetricsBarGraph';
 import QuickInsightCards from './QuickInsightCards';
 import { IoIosTime } from "react-icons/io";
 import { GrAlert } from "react-icons/gr";
-
-// Full circle outline pie chart with score in center
-const FullOutlinePieChart = ({ value = 82 }: { value: number }) => {
-  const radius = 20;
-  const strokeWidth = 4;
-  const circumference = 2 * Math.PI * radius; // ~125.66
-  const safeValue = Math.min(100, Math.max(0, value));
-  const strokeDashoffset = circumference - (safeValue / 100) * circumference;
-
-  return (
-    <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
-      <svg width="120" height="120" viewBox="0 0 56 56" className="transform -rotate-90">
-        <defs>
-          <linearGradient id="fullPieGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#6366F1" />
-          </linearGradient>
-        </defs>
-        <circle
-          cx="28"
-          cy="28"
-          r={radius}
-          fill="none"
-          stroke="#E2E8F0"
-          strokeWidth={strokeWidth}
-        />
-        <circle
-          cx="28"
-          cy="28"
-          r={radius}
-          fill="none"
-          stroke="url(#fullPieGradient)"
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          className="transition-all duration-700 ease-out"
-        />
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-xl font-extrabold text-slate-800 tracking-tight">{value}</span>
-      </div>
-    </div>
-  );
-};
-
-// Half circle outline pie chart with percentage inside/under arc
-const HalfOutlinePieChart = ({ value = 75 }: { value: number }) => {
-  const radius = 20;
-  const strokeWidth = 4;
-  const arcLength = Math.PI * radius; // ~62.83
-  const safeValue = Math.min(100, Math.max(0, value));
-  const strokeDashoffset = arcLength - (safeValue / 100) * arcLength;
-
-  return (
-    <div className="relative w-20 h-20 shrink-0 flex flex-col items-center justify-center">
-      <svg width="120" height="60" viewBox="0 0 52 30" className="relative overflow-visible">
-        <defs>
-          <linearGradient id="halfPieGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#10B981" />
-            <stop offset="100%" stopColor="#059669" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M 6 26 A 20 20 0 0 1 46 26"
-          fill="none"
-          stroke="#E2E8F0"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-        />
-        <path
-          d="M 6 26 A 20 20 0 0 1 46 26"
-          fill="none"
-          stroke="url(#halfPieGradient)"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeDasharray={arcLength}
-          strokeDashoffset={strokeDashoffset}
-          className="transition-all duration-700 ease-out"
-        />
-      </svg>
-      <div className="absolute top-10 text-center">
-        <span className="text-xl font-extrabold text-slate-800 tracking-tight">{value}%</span>
-      </div>
-    </div>
-  );
-};
-
+import { FullOutlinePieChart } from '../../../../components/ui/FillOutlinePieChart';
+import { HalfOutlinePieChart } from '../../../../components/ui/HalfOutlinePieChart';
 
 export default function OverviewTab({
   activeTab,
@@ -104,6 +18,9 @@ export default function OverviewTab({
   matchPercentage=0,
   totalSkillCount
 }: any) {
+
+  
+
   return (
     <div>
       {activeTab === "overview" && (
@@ -113,7 +30,7 @@ export default function OverviewTab({
             {/* Card 1: ATS Style Score (Full outline pie chart with 82 in center) */}
             <QuickCard>
               <div className="flex items-center gap-3 w-full">
-                <FullOutlinePieChart value={score} />
+                <FullOutlinePieChart value={score} total={100} label='ATS'/>
                 <div className="flex flex-col min-w-0 justify-center">
                   <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider truncate">
                     ATS Style Score
@@ -133,7 +50,7 @@ export default function OverviewTab({
             {/* Card 2: Job Match (Half outline pie chart with matchPercentage) */}
             <QuickCard>
               <div className="flex items-center gap-8 w-full">
-                <HalfOutlinePieChart value={matchPercentage} />
+                <HalfOutlinePieChart value={matchPercentage}/>
                 <div className="flex flex-col min-w-0 justify-center">
                   <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider truncate">
                     Job Match

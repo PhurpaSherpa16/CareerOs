@@ -7,15 +7,15 @@ import {
     FiChevronRight,
     FiSliders,
 } from 'react-icons/fi';
-import { dashboardMockData } from '../../../data/userDashboard.mock';
-import { Card } from '../../../components/Card.UserDashboard';
-import { Heading } from '../../../components/Heading.UserDashboard';
-import AnalysisCard from '../../../components/ui/AnalysisCard';
-import ReportPreviewTab from '../components/ReportPreviewTab';
-import ResumePreviewTab from '../components/ResumePreviewTab';
-import JobDescriptionTab from '../components/JobDescriptionTab';
-import AICoverLetterTab from '../components/AICoverLetterTab';
-import Icons from '../../../utils/Icons';
+import { dashboardMockData } from '../../../../data/userDashboard.mock';
+import { Card } from '../../../../components/Card.UserDashboard';
+import { Heading } from '../../../../components/Heading.UserDashboard';
+import AnalysisCard from '../../../../components/ui/AnalysisCard';
+import ReportPreviewTab from '../../components/ReportPreviewTab';
+import ResumePreviewTab from '../../components/ResumePreviewTab';
+import JobDescriptionTab from '../../components/JobDescriptionTab';
+import AICoverLetterTab from '../../components/AICoverLetterTab';
+import Icons from '../../../../utils/Icons';
 import { FaWandMagicSparkles } from 'react-icons/fa6';
 
 export default function AllAnalysis() {
@@ -197,7 +197,7 @@ export default function AllAnalysis() {
                                             const isSelected = activeAnalysis?.id === analysis.id;
                                             return (
                                                 <div key={analysis.id} className={`rounded-lg transition-all ${isSelected ? 'border-2 border-(--primaryBlue) ring-offset-1 bg-(--lightBlue)'
-                                                        : 'hover:bg-(--lightBlue) border border-(--primaryBlue)/10'
+                                                    : 'hover:bg-(--lightBlue) border border-(--primaryBlue)/10'
                                                     }`}>
                                                     <AnalysisCard
                                                         jobTitle={analysis.job?.title || 'Unknown Position'}
@@ -245,31 +245,31 @@ export default function AllAnalysis() {
                                     <div className='flex flex-wrap gap-1 items-center'>
                                         <button type="button" onClick={() => setActiveTab('report')}
                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'report'
-                                                    ? 'bg-white text-(--primaryBlue) shadow-xs'
-                                                    : 'text-slate-600 hover:text-slate-900'
+                                                ? 'bg-white text-(--primaryBlue) shadow-xs'
+                                                : 'text-slate-600 hover:text-slate-900'
                                                 }`}>
                                             <Icons name="report" />
                                             Report Preview
                                         </button>
                                         <button type="button" onClick={() => setActiveTab('resume')}
                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'resume'
-                                                    ? 'bg-white text-(--primaryBlue) shadow-xs'
-                                                    : 'text-slate-600 hover:text-slate-900'
+                                                ? 'bg-white text-(--primaryBlue) shadow-xs'
+                                                : 'text-slate-600 hover:text-slate-900'
                                                 }`}>
                                             <Icons name="resume" />
                                             Resume
                                         </button>
                                         <button type="button" onClick={() => setActiveTab('jd')}
                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'jd'
-                                                    ? 'bg-white text-(--primaryBlue) shadow-xs'
-                                                    : 'text-slate-600 hover:text-slate-900'}`}>
+                                                ? 'bg-white text-(--primaryBlue) shadow-xs'
+                                                : 'text-slate-600 hover:text-slate-900'}`}>
                                             <Icons name="jobIcon" />
                                             Job Description (JD)
                                         </button>
                                         <button type="button" onClick={() => setActiveTab('coverLetter')}
                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${activeTab === 'coverLetter'
-                                                    ? 'bg-white text-(--primaryBlue) shadow-xs'
-                                                    : 'text-slate-600 hover:text-slate-900'
+                                                ? 'bg-white text-(--primaryBlue) shadow-xs'
+                                                : 'text-slate-600 hover:text-slate-900'
                                                 }`}>
                                             <FaWandMagicSparkles className="w-3.5 h-3.5 text-indigo-500" />
                                             AI Cover Letter
@@ -282,7 +282,7 @@ export default function AllAnalysis() {
                                         hover:text-indigo-700
                                         shadow-xs`}
                                         title="Analyze this resume with a new job description">
-                                        <Icons name='repeat'/>
+                                        <Icons name='repeat' />
                                         Analyze Resume
                                     </Link>
 

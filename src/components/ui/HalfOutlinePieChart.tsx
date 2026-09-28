@@ -1,17 +1,25 @@
-export const HalfOutlinePieChart = ({ value = 75, color }: { value: number, color: string }) => {
+import { useMemo } from "react";
+
+export const HalfOutlinePieChart = ({ value = 75 }: { value: number}) => {
   const radius = 20;
   const strokeWidth = 4;
   const arcLength = Math.PI * radius; // ~62.83
   const safeValue = Math.min(100, Math.max(0, value));
   const strokeDashoffset = arcLength - (safeValue / 100) * arcLength;
 
+  const matchColor: string | undefined = useMemo(() => {
+    if (value >= 0 && value <= 50) return 'red';
+    if (value >= 51 && value <= 80) return 'orange';
+    if (value >= 81 && value <= 100) return 'green';
+  }, [value]);
+
   return (
     <div className="relative w-20 h-20 shrink-0 flex flex-col items-center justify-center">
       <svg width="120" height="60" viewBox="0 0 52 30" className="relative overflow-visible">
         <defs>
           <linearGradient id="halfPieGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={color} />
-            <stop offset="100%" stopColor={color} />
+            <stop offset="0%" stopColor={matchColor} />
+            <stop offset="100%" stopColor={matchColor} />
           </linearGradient>
         </defs>
         <path
