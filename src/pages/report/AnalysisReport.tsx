@@ -10,8 +10,7 @@ export default function AnalysisReport() {
 
   return (
     <div className="mainDiv space-y-8 pb-10">
-        <HeaderUserDashboard
-            title="Analysis Report"
+        <HeaderUserDashboard title="Analysis Report" 
             subTitle="Track your applied companies, manage saved job descriptions, and analyze match scores"
             link="/user-dashboard/all-analysis"
             buttonLabel="All Analysis"/>
