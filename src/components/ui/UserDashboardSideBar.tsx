@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { BsFillGrid3X3GapFill, BsStars, BsLock, BsChevronDown } from "react-icons/bs";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { PiBagSimpleBold } from "react-icons/pi";
-import { FaMoneyBills, FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus } from "react-icons/fa6";
 import { VscAccount } from "react-icons/vsc";
 import { MdOutlineDocumentScanner, MdOutlineSupportAgent } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
@@ -334,7 +334,7 @@ const MenuList: { title: string; items: MenuItem[] }[] = [
       {
         title: "AI Resume Builder",
         icon: BsStars,
-        path: "/ai-builder",
+        path: "/user-dashboard/ai-builder",
         new: true,
         disabled: true,
       },
@@ -344,14 +344,9 @@ const MenuList: { title: string; items: MenuItem[] }[] = [
     title: "Setting",
     items: [
       {
-        title: "Billing",
-        icon: FaMoneyBills,
-        path: "/billing",
-      },
-      {
         title: "Account",
         icon: VscAccount,
-        path: "/account",
+        path: "/user-dashboard/account",
       },
     ],
   },
@@ -361,12 +356,12 @@ const MenuList: { title: string; items: MenuItem[] }[] = [
       {
         title: "Help Center",
         icon: MdOutlineSupportAgent,
-        path: "/help",
+        path: "/user-dashboard/help",
       },
       {
         title: "FAQs",
         icon: FaQuestionCircle,
-        path: "/faqs",
+        path: "/user-dashboard/faqs",
       },
     ],
   },

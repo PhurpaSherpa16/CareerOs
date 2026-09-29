@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CompanyAppliedBarChart from './components/CompanyAppliedBarChart';
 import ActiveCompanyJobDetails from './components/ActiveCompanyJobDetails';
 import JobList from './components/JobList';
+import { Heading } from '../../../../components/Heading.UserDashboard';
 
 export default function Job() {
   const [selectedCompany, setSelectedCompany] = useState<string | undefined>(undefined);
@@ -35,11 +36,8 @@ export default function Job() {
         <JobList />
       </section>
 
-      <div className='space-y-8'>
-        <div className='flex items-center gap-2 pt-4'>
-          <span className='text-sm text-(--secondaryBlack) font-semibold'>More activity</span>
-          <hr className='flex-1 border border-slate-200'/>
-        </div>
+      <div className='space-y-8 pt-4'>
+        <Heading label="More Activity" />
         <section className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           <div className="lg:col-span-6 xl:col-span-6 min-h-130 max-h-130">
             <CompanyAppliedBarChart

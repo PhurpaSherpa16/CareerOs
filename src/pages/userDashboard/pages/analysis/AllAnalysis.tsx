@@ -17,6 +17,7 @@ import JobDescriptionTab from '../../components/JobDescriptionTab';
 import AICoverLetterTab from '../../components/AICoverLetterTab';
 import Icons from '../../../../utils/Icons';
 import { FaWandMagicSparkles } from 'react-icons/fa6';
+import HeaderUserDashboard from '../../../../components/Header.UserDashboard';
 
 export default function AllAnalysis() {
     const mockData = dashboardMockData;
@@ -93,14 +94,9 @@ export default function AllAnalysis() {
     return (
         <div className="mainDiv space-y-8">
             {/* Header Section */}
-            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="h1">All Analysis Reports</h1>
-                    <p className="text-(--secondaryBlack) text-xs sm:text-sm mt-1">
-                        Search, filter, and evaluate all your ATS resume optimization reports
-                    </p>
-                </div>
-            </header>
+            <HeaderUserDashboard title="All Analysis Reports" subTitle="Search, filter, and evaluate all your ATS resume optimization reports" 
+            link="/user-dashboard/new-analysis" buttonLabel="New Analysis" 
+            icon="analyze"/>
 
             <Heading label="Filter & Analysis History" />
 

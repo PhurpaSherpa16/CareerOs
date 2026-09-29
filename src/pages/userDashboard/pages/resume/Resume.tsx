@@ -4,6 +4,7 @@ import { dashboardMockData } from '../../../../data/userDashboard.mock';
 import TopAtsRatedResume from './components/TopAtsRatedResume';
 import ResumeList from './components/ResumeList';
 import { useMemo } from 'react';
+import { Heading } from '../../../../components/Heading.UserDashboard';
 
 export default function Resume() {
   const resumesList: any[] = dashboardMockData.resumes || [];
@@ -37,11 +38,8 @@ export default function Resume() {
       {/* Bottom Section: Split 2-Column (Left: Resume List, Right: Raw Resume Text Preview + 3 Action Buttons) */}
       <ResumeList />
 
-      <div className='space-y-8'>
-        <div className='flex items-center gap-2 pt-4'>
-          <span className='text-sm text-(--secondaryBlack) font-semibold'>Top ATS style Resume</span>
-          <hr className='flex-1 border border-slate-200'/>
-        </div>
+      <div className='space-y-8 pt-4'>
+        <Heading label="Top ATS style Resume" />
           {/* Top Section: Top Rated Resume Card w-full */}
         {topRatedResume ? (
           <TopAtsRatedResume data={topRatedResume} />

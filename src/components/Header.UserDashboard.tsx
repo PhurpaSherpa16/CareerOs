@@ -6,8 +6,8 @@ type IconType = IconName;
 interface HeaderUserDashboardProps {
     title : string;
     subTitle : string;
-    link: string
-    buttonLabel : string
+    link?: string
+    buttonLabel?: string
     icon?: IconType
 }
 
@@ -20,12 +20,14 @@ export default function HeaderUserDashboard({title, subTitle, link, buttonLabel,
             {subTitle}
             </p>
         </div>
-        <div className="flex items-center gap-3">
-            <Link to={link} className="px-4 py-2 bg-(--primaryBlue) hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors cursor-pointer">
-                <Icons name={icon ? icon : 'analyze'}/>
-                {buttonLabel}
-            </Link>
-        </div>
+            {link && buttonLabel && icon && (
+            <div className="flex items-center gap-3">
+                    <Link to={link} className="px-4 py-2 bg-(--primaryBlue) hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors cursor-pointer">
+                        <Icons name={icon}/>
+                        {buttonLabel}
+                    </Link>
+            </div>)
+            }
     </header>
   )
 }
