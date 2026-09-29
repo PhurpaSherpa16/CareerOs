@@ -14,6 +14,7 @@ import Job from "../pages/userDashboard/pages/job/Job";
 import AddNewAnalysis from "../pages/userDashboard/pages/newAnalysis/AddNewAnalysis";
 import AnalysisReport from "../pages/report/AnalysisReport";
 import Account from "../pages/userDashboard/pages/account/Account";
+import HelpCenter from "../pages/userDashboard/pages/helpcenter/HelpCenter";
 import ProtectedRoute from "./ProtectedRoute";
 
 
@@ -38,6 +39,7 @@ export default function MainRoutes() {
                     <Route path="new-analysis" element={<AddNewAnalysis />} />
                     <Route path="report/:analysisId" element={<AnalysisReport />} />
                     <Route path="account" element={<Account />} />
+                    <Route path="help" element={<HelpCenter />} />
                 </Route>
             </Route>
 

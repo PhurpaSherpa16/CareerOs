@@ -14,7 +14,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
         <div className="flex flex-col items-center gap-3">
           <div className="w-8 h-8 rounded-full border-3 border-(--primaryBlue) border-t-transparent animate-spin" />
           <p className="text-xs font-semibold text-(--secondaryBlack) tracking-wide">
-            Authenticating...
+            Loading...
           </p>
         </div>
       </div>
