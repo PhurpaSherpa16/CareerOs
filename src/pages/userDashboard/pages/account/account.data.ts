@@ -2,9 +2,9 @@ import type { UserProfile, AIModel, SubscriptionPlan } from "./account.types";
 
 // ─── Mock user data ──────────────────────────────────────────────────────────
 export const mockUser: UserProfile = {
-  firstName: "Phurpa",
-  lastName: "Sherpa",
-  email: "phurpa.sherpa@example.com",
+  firstName: "John",
+  lastName: "Doe",
+  email: "johndoe@gmail.com",
   avatarUrl: null,
 };
 

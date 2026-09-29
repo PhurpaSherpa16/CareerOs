@@ -1,26 +1,38 @@
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
+import { useClerk } from "@clerk/react";
+import { useNavigate } from "react-router-dom";
 
 interface LogoutSectionProps {
-  onLogout: () => Promise<void>;
+  onLogout?: () => Promise<void>;
 }
 
 export default function LogoutSection({ onLogout }: LogoutSectionProps) {
   const [confirming, setConfirming] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { signOut } = useClerk();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     setLoading(true);
     try {
-      await onLogout();
-    } catch {
+      if (onLogout) {
+        await onLogout();
+      } else {
+        await signOut();
+        navigate("/login", { replace: true });
+      }
+    } catch (error) {
+      console.error("Sign out error:", error);
+      navigate("/login", { replace: true });
+    } finally {
       setLoading(false);
       setConfirming(false);
     }
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl border border-rose-100 bg-rose-50/40">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl border border-rose-500 bg-rose-50/40">
       <div className="space-y-1">
         <h3 className="text-sm font-bold text-slate-800 tracking-tight">Sign Out</h3>
         <p className="text-xs text-slate-400">

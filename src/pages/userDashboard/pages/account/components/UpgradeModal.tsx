@@ -30,12 +30,8 @@ export default function UpgradeModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative px-6 py-6 sm:px-8 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 text-white">
-          <button
-            type="button"
-            onClick={onClose}
-            className="absolute top-4 right-4 p-1.5 hover:bg-white/20 rounded-xl transition-colors cursor-pointer"
-          >
+        <div className="relative px-6 py-6 sm:px-8 bg-linear-to-r from-indigo-700 to-(--primaryBlue) text-white">
+          <button type="button" onClick={onClose} className="absolute top-4 right-4 p-1.5 hover:bg-white/20 rounded-xl transition-colors cursor-pointer">
             <FiX className="w-5 h-5" />
           </button>
 

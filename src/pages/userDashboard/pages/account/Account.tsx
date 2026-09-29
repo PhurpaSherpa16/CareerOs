@@ -80,8 +80,13 @@ export default function Account() {
 
   // ── Logout handler ────────────────────────────────────────────────────────
   const handleLogout = async () => {
-    await signOut();
-    navigate("/login", { replace: true });
+    try {
+      await signOut();
+    } catch (err) {
+      console.warn("Clerk signOut error:", err);
+    } finally {
+      navigate("/login", { replace: true });
+    }
   };
 
   // ── Loading state ─────────────────────────────────────────────────────────
@@ -184,12 +189,8 @@ export default function Account() {
       </div>
 
       {/* Upgrade Modal */}
-      <UpgradeModal
-        isOpen={isUpgradeModalOpen}
-        plans={subscriptionPlans}
-        onClose={() => setIsUpgradeModalOpen(false)}
-        onSelectPlan={handleSelectPlan}
-      />
+      <UpgradeModal isOpen={isUpgradeModalOpen} plans={subscriptionPlans}
+        onClose={() => setIsUpgradeModalOpen(false)} onSelectPlan={handleSelectPlan}/>
     </div>
   );
 }

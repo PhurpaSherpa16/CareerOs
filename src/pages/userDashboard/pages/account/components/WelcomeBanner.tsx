@@ -11,7 +11,7 @@ export default function WelcomeBanner({ firstName, email }: WelcomeBannerProps) 
     hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 px-6 py-7 sm:px-8 sm:py-9 text-white shadow-lg">
+    <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-indigo-800 via-blue-800 to-blue-950 px-6 py-7 sm:px-8 sm:py-9 text-white shadow-lg">
       {/* Decorative blobs */}
       <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
       <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl pointer-events-none" />

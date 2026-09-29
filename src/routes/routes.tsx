@@ -14,6 +14,7 @@ import Job from "../pages/userDashboard/pages/job/Job";
 import AddNewAnalysis from "../pages/userDashboard/pages/newAnalysis/AddNewAnalysis";
 import AnalysisReport from "../pages/report/AnalysisReport";
 import Account from "../pages/userDashboard/pages/account/Account";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 export default function MainRoutes() {
@@ -28,14 +29,16 @@ export default function MainRoutes() {
                 <Route path="/register" element={<Register />} />
             </Route>
 
-            <Route path="/user-dashboard" element={<UserDashboardLayout />}>
-                <Route index element={<UserDashboard />} />
-                <Route path="all-analysis" element={<AllAnalysis />} />
-                <Route path="resume" element={<Resume />} />
-                <Route path="saved-jobs" element={<Job />} />
-                <Route path="new-analysis" element={<AddNewAnalysis />} />
-                <Route path="report/:analysisId" element={<AnalysisReport />} />
-                <Route path="account" element={<Account />} />
+            <Route element={<ProtectedRoute />}>
+                <Route path="/user-dashboard" element={<UserDashboardLayout />}>
+                    <Route index element={<UserDashboard />} />
+                    <Route path="all-analysis" element={<AllAnalysis />} />
+                    <Route path="resume" element={<Resume />} />
+                    <Route path="saved-jobs" element={<Job />} />
+                    <Route path="new-analysis" element={<AddNewAnalysis />} />
+                    <Route path="report/:analysisId" element={<AnalysisReport />} />
+                    <Route path="account" element={<Account />} />
+                </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />
