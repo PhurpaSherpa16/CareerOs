@@ -120,12 +120,9 @@ export default function FaqSection() {
 
           {/* Right Scroll Button */}
           {canScrollRight && (
-            <button
-              type="button"
-              onClick={() => handleScroll("right")}
-              className="absolute right-0.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-white/95 shadow-md border border-slate-300 flex items-center justify-center text-slate-700 hover:text-(--primaryBlue) hover:scale-110 transition-all cursor-pointer"
-              aria-label="Scroll right"
-            >
+            <button type="button" onClick={() => handleScroll("right")}
+              className="absolute right-0.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-white/95 shadow-md border border-slate-300 flex items-center justify-center text-slate-700 hover:text-(--primaryBlue) hover:scale-110 transition-all cursor-pointer" 
+              aria-label="Scroll right">
               <FiChevronRight className="w-3.5 h-3.5" />
             </button>
           )}
