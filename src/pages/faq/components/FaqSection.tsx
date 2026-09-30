@@ -139,9 +139,7 @@ export default function FaqSection() {
               const label = categoryLabels[type] || type.replace("-", " ");
 
               return (
-                <button
-                  key={type}
-                  onClick={() => setSelectedType(type)}
+                <button key={type} onClick={() => setSelectedType(type)}
                   className={`group shrink-0 whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all duration-200 select-none ${
                     isSelected
                       ? "bg-(--primaryBlue) text-white shadow-sm shadow-indigo-200"
@@ -150,8 +148,7 @@ export default function FaqSection() {
                   aria-pressed={isSelected}
                 >
                   <span className="capitalize">{label}</span>
-                  <span
-                    className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold transition-colors ${
+                  <span className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold transition-colors ${
                       isSelected
                         ? "bg-white/25 text-white"
                         : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
@@ -169,11 +166,8 @@ export default function FaqSection() {
         <div className="flex items-center gap-3">
           <div className="relative flex-1 sm:w-64">
             <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions..."
+            <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search questions..." 
               className="w-full pl-9 pr-3 py-1.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 text-slate-700 transition-all placeholder:text-slate-400"
             />
           </div>
