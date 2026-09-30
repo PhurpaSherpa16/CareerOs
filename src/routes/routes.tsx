@@ -16,6 +16,7 @@ import AnalysisReport from "../pages/report/AnalysisReport";
 import Account from "../pages/userDashboard/pages/account/Account";
 import HelpCenter from "../pages/userDashboard/pages/helpcenter/HelpCenter";
 import ProtectedRoute from "./ProtectedRoute";
+import FAQ from "../pages/faq/FAQ";
 
 
 export default function MainRoutes() {
@@ -40,6 +41,7 @@ export default function MainRoutes() {
                     <Route path="report/:analysisId" element={<AnalysisReport />} />
                     <Route path="account" element={<Account />} />
                     <Route path="help" element={<HelpCenter />} />
+                    <Route path="faqs" element={<FAQ />} />
                 </Route>
             </Route>
 

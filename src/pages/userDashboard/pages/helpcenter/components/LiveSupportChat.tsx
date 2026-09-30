@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useRef} from "react";
 import { FiSend, FiUser, FiHeadphones } from "react-icons/fi";
 import { Card } from "../../../../../components/Card.UserDashboard";
 import type { ChatMessage } from "../helpCenter.data";
@@ -22,10 +22,6 @@ export default function LiveSupportChat({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
-
   const generateReply = (userQuery: string): string => {
     const q = userQuery.toLowerCase();
     if (q.includes("ats") || q.includes("score")) {
@@ -44,6 +40,11 @@ export default function LiveSupportChat({
   };
 
   const handleSendMessage = (textToSend?: string) => {
+    // Scroll to bottom before sending message
+    setTimeout(() => {
+      scrollToBottom();
+    }, 0);
+
     const query = (textToSend || inputValue).trim();
     if (!query) return;
 
@@ -71,14 +72,14 @@ export default function LiveSupportChat({
     }, 1100);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e : any) => {
     e.preventDefault();
     handleSendMessage();
   };
 
   return (
     <Card>
-      <div className="flex flex-col h-[520px] rounded-2xl overflow-hidden bg-white">
+      <div className="flex flex-col h-130 rounded-2xl overflow-hidden bg-white">
         {/* Chat Header */}
         <div className="px-5 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center gap-3">
@@ -108,16 +109,11 @@ export default function LiveSupportChat({
         </div>
 
         {/* Messages List Area */}
-        <div className="flex-1 p-5 overflow-y-auto space-y-4 bg-slate-50/50">
+        <div className="flex-1 p-5 overflow-y-auto space-y-4 bg-slate-50/50 pb-8">
           {messages.map((msg) => {
             const isAgent = msg.sender === "agent";
             return (
-              <div
-                key={msg.id}
-                className={`flex gap-3 max-w-[85%] ${
-                  isAgent ? "mr-auto" : "ml-auto flex-row-reverse"
-                }`}
-              >
+              <div key={msg.id} className={`flex gap-3 max-w-[85%] ${ isAgent ? "mr-auto" : "ml-auto flex-row-reverse"}`}>
                 {/* Avatar Icon */}
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
@@ -167,7 +163,7 @@ export default function LiveSupportChat({
             </div>
           )}
 
-          <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} className="h-1 w-full pt-6"/>
         </div>
 
         {/* Quick Prompts Bar */}
@@ -176,22 +172,15 @@ export default function LiveSupportChat({
             Quick Ask:
           </span>
           {quickPrompts.map((prompt, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => handleSendMessage(prompt)}
-              className="text-xs shrink-0 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-(--primaryBlue) text-slate-600 border border-slate-200/80 transition-colors cursor-pointer"
-            >
+            <button key={i} type="button" onClick={() => handleSendMessage(prompt)}
+              className="text-xs shrink-0 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-(--primaryBlue) text-slate-600 border border-slate-200/80 transition-colors cursor-pointer">
               {prompt}
             </button>
           ))}
         </div>
 
         {/* Input Bar */}
-        <form
-          onSubmit={handleSubmit}
-          className="p-3 bg-white border-t border-slate-200/80 flex items-center gap-2"
-        >
+        <form onSubmit={handleSubmit} className="p-3 bg-white border-t border-slate-200/80 flex items-center gap-2">
           <input
             type="text"
             value={inputValue}

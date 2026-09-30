@@ -1,14 +1,7 @@
 import HeaderUserDashboard from "../../../../components/Header.UserDashboard";
 import { Heading } from "../../../../components/Heading.UserDashboard";
 import SupportChannels from "./components/SupportChannels";
-import LiveSupportChat from "./components/LiveSupportChat";
-import SupportCategories from "./components/SupportCategories";
-import {
-  helplinesData,
-  supportCategoriesData,
-  initialChatMessages,
-  quickPrompts,
-} from "./helpCenter.data";
+import {helplinesData} from "./helpCenter.data";
 import { FiCheckCircle, FiClock } from "react-icons/fi";
 
 export default function HelpCenter() {
@@ -54,21 +47,6 @@ export default function HelpCenter() {
       <div className="space-y-4">
         <Heading label="Helpline Numbers & Phone Support" />
         <SupportChannels helplines={helplinesData} />
-      </div>
-
-      {/* Live Chat Section */}
-      <div className="space-y-4">
-        <Heading label="Live Support Assistant" />
-        <LiveSupportChat
-          initialMessages={initialChatMessages}
-          quickPrompts={quickPrompts}
-        />
-      </div>
-
-      {/* Common Help Categories */}
-      <div className="space-y-4">
-        <Heading label="Knowledge Base & Guides" />
-        <SupportCategories categories={supportCategoriesData} />
       </div>
     </div>
   );
