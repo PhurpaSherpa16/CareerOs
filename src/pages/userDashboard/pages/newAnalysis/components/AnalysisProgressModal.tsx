@@ -343,7 +343,7 @@ export default function AnalysisProgressModal({
                                     {tipsCardData?.map((card) => (
                                         <div
                                             key={card.id}
-                                            className="w-full shrink-0 p-4 sm:p-5 flex flex-col justify-between min-h-[105px]"
+                                            className="w-full shrink-0 p-4 sm:p-5 flex flex-col justify-between min-h-26"
                                         >
                                             <div>
                                                 <h4 className="text-xs sm:text-sm font-semibold text-(--primaryBlack)">
