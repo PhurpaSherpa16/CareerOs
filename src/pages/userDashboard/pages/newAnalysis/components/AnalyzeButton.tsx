@@ -6,14 +6,16 @@ interface AnalyzeButtonProps {
   isAnalyzing?: boolean;
   resumeUploaded: boolean;
   jobDescriptionAdded: boolean;
+  loadingText?: string;
 }
 
-export default function AnalyzeButton({
-  isEnabled,
-  onAnalyze,
-  isAnalyzing = false,
-  resumeUploaded,
+export default function AnalyzeButton({ 
+  isEnabled, 
+  onAnalyze, 
+  isAnalyzing = false, 
+  resumeUploaded, 
   jobDescriptionAdded,
+  loadingText
 }: AnalyzeButtonProps) {
   const getDisabledReason = () => {
     if (!resumeUploaded && !jobDescriptionAdded) {
@@ -39,18 +41,14 @@ export default function AnalyzeButton({
         </p>
       </div>
 
-      <button
-        type="button"
-        disabled={!isEnabled || isAnalyzing}
-        onClick={onAnalyze}
+      <button  type="button" disabled={!isEnabled || isAnalyzing} onClick={onAnalyze}
         className={`w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-md ${
           isEnabled && !isAnalyzing
             ? 'bg-(--primaryBlue) hover:bg-blue-700 text-white shadow-(--primaryBlue)/25 hover:shadow-lg active:scale-[0.98]'
             : 'bg-slate-200 text-slate-400 border border-slate-300 shadow-none cursor-not-allowed'
-        }`}
-      >
+        }`}>
         <Icons name="analyze" size="sm" className={isAnalyzing ? 'animate-spin' : ''} />
-        <span>{isAnalyzing ? 'Analyzing Match...' : 'Analyze Resume & Job'}</span>
+        <span>{isAnalyzing ? (loadingText || 'Analyzing Match...') : 'Analyze Resume & Job'}</span>
       </button>
     </div>
   );

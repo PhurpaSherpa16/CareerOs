@@ -9,6 +9,8 @@ interface JobDescriptionFormProps {
   setCompanyName: (val: string) => void;
   jobUrl: string;
   setJobUrl: (val: string) => void;
+  jobTitle: string;
+  setJobTitle: (val: string) => void;
 }
 
 export interface JDValidationResult {
@@ -126,14 +128,8 @@ export const validateJobDescription = (text: string): JDValidationResult | null 
   };
 };
 
-export default function JobDescriptionForm({
-  jobDescription,
-  setJobDescription,
-  companyName,
-  setCompanyName,
-  jobUrl,
-  setJobUrl,
-}: JobDescriptionFormProps) {
+export default function JobDescriptionForm({ jobDescription, setJobDescription, companyName, setCompanyName,
+  jobUrl, setJobUrl, jobTitle, setJobTitle }: JobDescriptionFormProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [jdError, setJdError] = useState<JDValidationResult | null>(null);
 
@@ -294,8 +290,7 @@ export default function JobDescriptionForm({
                     : jdError.type === 'warning'
                     ? 'bg-amber-50 border-amber-200 text-amber-800'
                     : 'bg-emerald-50 border-emerald-200 text-emerald-800'
-                }`}
-              >
+                }`}>
                 <div
                   className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
                     jdError.type === 'error'
@@ -305,14 +300,7 @@ export default function JobDescriptionForm({
                       : 'bg-emerald-600 text-white'
                   }`}
                 >
-                  <Icons
-                    name={
-                      jdError.type === 'error'
-                        ? 'cross'
-                        : jdError.type === 'warning'
-                        ? 'alert'
-                        : 'check'
-                    }
+                  <Icons name={ jdError.type === 'error' ? 'cross' : jdError.type === 'warning' ? 'alert' : 'check' }
                     size="xs"
                   />
                 </div>
@@ -324,6 +312,21 @@ export default function JobDescriptionForm({
             )}
           </div>
 
+
+          <div className="space-y-1.5">
+            <label htmlFor="company-name-input" className="text-xs font-bold text-(--primaryBlack)">
+              Job title <span className="text-slate-400 font-normal">(Required)</span>
+            </label>
+            <div className="relative flex items-center">
+              <div className="absolute left-3 text-slate-400 pointer-events-none">
+                <Icons name="job" size="sm" />
+              </div>
+              <input id="company-name-input" type="text" value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)} placeholder="e.g. Senior Software Engineer, Data Analyst"
+                className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm text-(--primaryBlack) bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:border-(--primaryBlue) focus:ring-2 focus:ring-(--primaryBlue)/20 transition-all outline-none"
+              />
+            </div>
+          </div>
           {/* Company Name & Job URL grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Company Name */}
@@ -335,14 +338,9 @@ export default function JobDescriptionForm({
                 <div className="absolute left-3 text-slate-400 pointer-events-none">
                   <Icons name="office" size="sm" />
                 </div>
-                <input
-                  id="company-name-input"
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Google, Stripe, Microsoft"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm text-(--primaryBlack) bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:border-(--primaryBlue) focus:ring-2 focus:ring-(--primaryBlue)/20 transition-all outline-none"
-                />
+                <input id="company-name-input" type="text"
+                  value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="e.g. Google, Stripe, Microsoft"
+                  className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm text-(--primaryBlack) bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:border-(--primaryBlue) focus:ring-2 focus:ring-(--primaryBlue)/20 transition-all outline-none"/>
               </div>
             </div>
 
@@ -355,14 +353,9 @@ export default function JobDescriptionForm({
                 <div className="absolute left-3 text-slate-400 pointer-events-none">
                   <Icons name="link" size="sm" />
                 </div>
-                <input
-                  id="job-url-input"
-                  type="url"
-                  value={jobUrl}
-                  onChange={(e) => setJobUrl(e.target.value)}
-                  placeholder="https://company.com/careers/job-123"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm text-(--primaryBlack) bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:border-(--primaryBlue) focus:ring-2 focus:ring-(--primaryBlue)/20 transition-all outline-none"
-                />
+                <input id="job-url-input" type="url" value={jobUrl} onChange={(e) => setJobUrl(e.target.value)} 
+                placeholder="https://company.com/careers/job-123"
+                className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm text-(--primaryBlack) bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:border-(--primaryBlue) focus:ring-2 focus:ring-(--primaryBlue)/20 transition-all outline-none"/>
               </div>
             </div>
           </div>
@@ -370,7 +363,7 @@ export default function JobDescriptionForm({
           {/* Helpful Tips Card */}
           <div className="bg-slate-50/80 border border-slate-200/70 rounded-xl p-4 space-y-2">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-              <Icons name="light" size="xs" className="text-amber-500" />
+              <Icons name="bulb" size="xs" className="text-amber-500" />
               <span>Optimization Advice for Job Descriptions</span>
             </div>
             <p className="text-[11px] text-slate-600 leading-relaxed">

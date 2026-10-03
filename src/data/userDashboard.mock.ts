@@ -906,3 +906,30 @@ latestJobs: [
   },
 ]
 }
+
+export const tipsCardData = [
+  {
+    "id": "ats-score",
+    "label": "Understanding your ATS score",
+    "description": "Your ATS score shows how closely your resume aligns with this job's requirements.",
+    "linkText": "Learn more"
+  },
+  {
+    "id": "skills",
+    "label": "Your skills are being compared",
+    "description": "We compare your skills against the required and preferred skills listed in the job.",
+    "linkText": "Learn more"
+  },
+  {
+    "id": "keywords",
+    "label": "Checking important keywords",
+    "description": "CareerOS checks relevant keywords that can strengthen your resume's job alignment.",
+    "linkText": "Learn more"
+  },
+  {
+    "id": "experience",
+    "label": "Reviewing your experience",
+    "description": "Your experience is compared with the role's expected level and requirements.",
+    "linkText": "Learn more"
+  }
+]

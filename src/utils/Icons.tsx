@@ -19,6 +19,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { GrUserSettings } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { FiLayers } from "react-icons/fi";
+import { HiLightBulb } from "react-icons/hi";
 
 
 const IconList = {
@@ -59,7 +60,8 @@ const IconList = {
     plus: FiPlus,
     link: FiLink,
     building: HiOutlineBuildingOffice2,
-    skill: GrUserSettings
+    skill: GrUserSettings,
+    bulb: HiLightBulb
 }
 
 export type IconName = keyof typeof IconList

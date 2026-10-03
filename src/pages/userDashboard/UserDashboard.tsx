@@ -15,37 +15,23 @@ import RecentAnalysis from "./components/RecentAnalysis"
 
 
 export default function UserDashboard() {
-    const {session, signOut} = useClerk()
+    const {session} = useClerk()
     const {isLoaded, user} = useUser()
     const {register, loading: RegisterLoading, error:formError} = useRegisterUser('api/auth/register')
     const {resumes, loading:getAllResumeLoading, error:getAllResumeError} = useGetAllResume('resume/all')
 
+    console.log("resumes", resumes)
+
     const [loading, setLoading] = useState<string>('Loading...')
     const navigate = useNavigate()
-
-    const getToken = async()=>{
-        if (!session){
-            console.log('No active session')
-            return;
-        }
-
-        const token = await session.getToken({
-            template: "careeros",
-        })
-        window.navigator.clipboard.writeText(token || "")
-        console.log("token", token)
-    }
-
-    const handleLogout = async() => {
-        setLoading('Logging out...')
-        await signOut()
-    }
 
     useEffect(()=>{
         if (session === null) {
             navigate("/login", { replace: true });
         }
     },[session, navigate])
+
+    console.log(localStorage.getItem('careerOsUserToken'), user)
 
     useEffect(()=>{
         if(getAllResumeLoading) return
@@ -56,9 +42,26 @@ export default function UserDashboard() {
     },[getAllResumeLoading, getAllResumeError, RegisterLoading, formError])
 
     useEffect(()=>{
-        if (!session) {
-            register().catch((err) => console.log("Register sync error: ", err))
+        let canclled = false
+        const asyncFun = async() => {
+            if(session){
+                const token = await session.getToken({
+                    template: "careeros",
+                })
+                if(!canclled) localStorage.setItem('careerOsUserToken', token || '')
+                
+                return
+            }
+            register().catch((error) =>{
+                if(!canclled) console.log("Register sync error: ", error)
+            })
         }
+        asyncFun()
+        
+        return () => {
+            canclled = true
+        }
+
     },[session])
 
     if(!isLoaded) return <div className="grid gap-2 place-content-center h-screen w-screen">{loading}</div>
