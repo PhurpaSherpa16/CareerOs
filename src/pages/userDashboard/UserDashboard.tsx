@@ -113,17 +113,17 @@ export default function UserDashboard() {
         <div className="space-y-6">
             <Heading label="Quick Summary"/>
             {/* Quick Overall Summary  */}
-            <div className="flex gap-8 min-h-0 w-full">
-                <div className="space-y-4 h-auto flex flex-col justify-between w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 w-full min-h-0">
+                <div className="space-y-4 h-full flex flex-col justify-between w-full min-w-0">
                     <AnalysisCard analysisCardData={analysisCardData}/>
                 </div>
 
-                <div className="space-y-4 h-fit w-fit">
+                <div className="space-y-4 h-fit w-full min-w-0">
                     <TotalResumeJobCard totalResume={totalResume} totalJobSaved={toalJobSaved}/>
                     <TopJobMatch topJobMatchData={topJobMatchData}/>
                 </div>
                 
-                <div className="space-y-4 h-auto flex flex-col justify-between w-full">
+                <div className="space-y-4 h-full flex flex-col justify-between w-full min-w-0 md:col-span-2 xl:col-span-1">
                     <AtsInsight aiInsightData={aiATSInsightData}/>
                 </div>
             </div>

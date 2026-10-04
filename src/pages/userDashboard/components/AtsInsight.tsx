@@ -20,7 +20,7 @@ export default function AtsInsight({ aiInsightData }: aiInsightDataProps) {
 
     return (
         <Card>
-            <div className="p-5 h-full flex flex-col justify-between gap-4">
+            <div className="p-5 h-full w-fit flex flex-col justify-between gap-4">
                 {/* Two Column Layout (Left & Right) */}
                 <div className="flex items-center justify-between gap-4 h-full">
                     

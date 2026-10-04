@@ -82,7 +82,7 @@ export default function UserDashboardSideBar({ menuOpen, setMenuOpen, user }: co
   return (
     <div className={`relative flex flex-col py-4 ${menuOpen ? "px-3" : "px-2"} bg-(--white) h-full border border-(--lightBlack)/30 shadow-md space-y-6 rounded-md transition-all duration-300`} >
       {/* logo */}
-      <div className={`relative flex items-center ${menuOpen ? "justify-between" : "justify-center"} px-1`}>
+      <div className={`relative hidden lg:flex items-center ${menuOpen ? "justify-between" : "justify-center"} px-1`}>
         <Link to="/" title="CareerOs" className="relative flex items-center gap-2.5 min-w-0">
           <img src="/logo.svg" alt="logo" className="size-8 object-contain shrink-0" />
           {menuOpen && (
@@ -93,7 +93,7 @@ export default function UserDashboardSideBar({ menuOpen, setMenuOpen, user }: co
         </Link>
 
         <div onClick={handleCollpoase} title={menuOpen ? "Collapse Sidebar" : "Expand Sidebar"}
-          className={`absolute ${menuOpen?"-right-6":"-right-12"} cursor-pointer bg-white hover:bg-slate-200 text-(--secondaryBlack) hover:text-(--primaryBlack) p-1 rounded-md 
+          className={`absolute ${menuOpen?"-right-6":"-right-6"} cursor-pointer bg-white hover:bg-slate-200 text-(--secondaryBlack) hover:text-(--primaryBlack) p-1 rounded-md 
           border border-slate-200 shadow-2xs transition-colors shrink-0 ${!menuOpen ? "mt-1" : ""}`}>
           {menuOpen ? (<RiMenuFoldFill className="size-3" />) 
           : (<RiMenuUnfoldFill className="size-3" />)
@@ -102,46 +102,48 @@ export default function UserDashboardSideBar({ menuOpen, setMenuOpen, user }: co
       </div>
 
       {/* user details */}
-      {menuOpen ? (
-        <div className="bg-linear-to-r from-(--primaryBlack) to-(--primaryBlue) rounded-xl p-3.5 shadow-sm text-white space-y-3">
-          <div className="flex items-center gap-3">
-            <div className="relative shrink-0">
-              <div className="size-10 rounded-full bg-white/20 backdrop-blur-xs flex items-center justify-center font-bold text-sm tracking-wider border border-white/30 text-white shadow-inner">
+      <div className="hidden lg:block">
+        {menuOpen ? (
+          <div className="bg-linear-to-r from-(--primaryBlack) to-(--primaryBlue) rounded-xl p-3.5 shadow-sm text-white space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="relative shrink-0">
+                <div className="size-10 rounded-full bg-white/20 backdrop-blur-xs flex items-center justify-center font-bold text-sm tracking-wider border border-white/30 text-white shadow-inner">
+                  {initial}
+                </div>
+                <span className="absolute bottom-0 right-0 size-2.5 bg-emerald-400 border-2 border-(--primaryBlack) rounded-full"></span>
+              </div>
+              <div className="min-w-0 flex-1">
+                <h3 className="text-sm font-bold truncate leading-tight">{fullName}</h3>
+                <p className="text-[11px] text-white/70 truncate">{email}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-1.5 border-t border-white/10 text-xs">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 border border-white/20 backdrop-blur-xs">
+                <RiDeepseekFill className="text-white text-sm shrink-0" />
+                <span className="text-[11px] font-medium tracking-wide">Deepseek Pro</span>
+              </div>
+              <span className="text-[10px] uppercase font-semibold text-emerald-300 tracking-wider bg-emerald-950/40 px-2 py-0.5 rounded-md">
+                Active
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-center my-1">
+            <Tooltip show={!menuOpen} label={ <div className="flex items-center gap-2">
+                  <span>{fullName}</span>
+                  <span className="text-[10px] text-emerald-400 bg-slate-800 px-1.5 py-0.5 rounded">
+                    Deepseek Pro
+                  </span>
+                </div>
+              }>
+              <div className="size-10 rounded-full bg-linear-to-tr from-(--primaryBlack) to-(--primaryBlue) flex items-center justify-center font-bold text-xs text-white border border-white/30 shadow-xs cursor-pointer">
                 {initial}
               </div>
-              <span className="absolute bottom-0 right-0 size-2.5 bg-emerald-400 border-2 border-(--primaryBlack) rounded-full"></span>
-            </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="text-sm font-bold truncate leading-tight">{fullName}</h3>
-              <p className="text-[11px] text-white/70 truncate">{email}</p>
-            </div>
+            </Tooltip>
           </div>
-
-          <div className="flex items-center justify-between pt-1.5 border-t border-white/10 text-xs">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 border border-white/20 backdrop-blur-xs">
-              <RiDeepseekFill className="text-white text-sm shrink-0" />
-              <span className="text-[11px] font-medium tracking-wide">Deepseek Pro</span>
-            </div>
-            <span className="text-[10px] uppercase font-semibold text-emerald-300 tracking-wider bg-emerald-950/40 px-2 py-0.5 rounded-md">
-              Active
-            </span>
-          </div>
-        </div>
-      ) : (
-        <div className="flex justify-center my-1">
-          <Tooltip show={!menuOpen} label={ <div className="flex items-center gap-2">
-                <span>{fullName}</span>
-                <span className="text-[10px] text-emerald-400 bg-slate-800 px-1.5 py-0.5 rounded">
-                  Deepseek Pro
-                </span>
-              </div>
-            }>
-            <div className="size-10 rounded-full bg-linear-to-tr from-(--primaryBlack) to-(--primaryBlue) flex items-center justify-center font-bold text-xs text-white border border-white/30 shadow-xs cursor-pointer">
-              {initial}
-            </div>
-          </Tooltip>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* navigation */}
       <nav className="space-y-5 2xl:space-y-7 flex-1 overflow-y-auto py-1">
