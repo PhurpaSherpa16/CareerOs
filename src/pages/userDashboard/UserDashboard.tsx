@@ -1,5 +1,5 @@
 import { useClerk, useUser } from "@clerk/react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import useRegisterUser from "../../hooks/registerUser"
 import useGetAllResume from "../../hooks/getAllResume.hook"
@@ -19,6 +19,12 @@ export default function UserDashboard() {
     const {isLoaded, user} = useUser()
     const {register, loading: RegisterLoading, error:formError} = useRegisterUser('api/auth/register')
     const {resumes, loading:getAllResumeLoading, error:getAllResumeError} = useGetAllResume('resume/all')
+
+    const registerRef = useRef(register)
+    registerRef.current = register
+
+    const attemptedUserIdRef = useRef<string | null>(null)
+    const isSyncingRef = useRef<boolean>(false)
 
     console.log("resumes", resumes)
 
@@ -41,33 +47,47 @@ export default function UserDashboard() {
         setLoading("")
     },[getAllResumeLoading, getAllResumeError, RegisterLoading, formError])
 
-    useEffect(()=>{
-        let canclled = false
-        const asyncFun = async() => {
-            if(session){
-                const token = await session.getToken({
-                    template: "careeros",
-                })
-                if(!canclled) localStorage.setItem('careerOsUserToken', token || '')
-                
-                return
-            }
-            register().catch((error) =>{
-                if(!canclled) console.log("Register sync error: ", error)
-            })
-        }
-        asyncFun()
-        
-        return () => {
-            canclled = true
-        }
+    useEffect(() => {
+        if (!session || !user?.id) return;
+        if (isSyncingRef.current) return;
 
-    },[session])
+        const syncUser = async () => {
+            const storedRegisteredId = localStorage.getItem('registeredId');
+            const isRegisteredFlag = localStorage.getItem('userRegistered') === 'true'
+
+            // Only considered registered if flag is true AND registeredId matches current clerk user ID
+            const isCurrentClerkUserRegistered = isRegisteredFlag && storedRegisteredId === user.id;
+
+            // If already registered and already handled for this user, do nothing
+            if (isCurrentClerkUserRegistered && attemptedUserIdRef.current === user.id) return
+
+            isSyncingRef.current = true;
+
+            try {
+                const token = await session.getToken({ template: "careeros" })
+                if (token) localStorage.setItem('careerOsUserToken', token);
+
+                if (!isCurrentClerkUserRegistered) {
+                    await registerRef.current();
+                    localStorage.setItem('userRegistered', 'true');
+                    localStorage.setItem('registeredId', user.id);
+                }
+
+                attemptedUserIdRef.current = user.id;
+            } catch (error) {
+                console.error("Register sync error: ", error);
+                attemptedUserIdRef.current = user.id;
+            } finally {
+                isSyncingRef.current = false;
+            }
+        };
+
+        syncUser();
+    }, [user?.id, session?.id]);
 
     if(!isLoaded) return <div className="grid gap-2 place-content-center h-screen w-screen">{loading}</div>
 
     const fullName = `${user?.firstName || "John"} ${user?.lastName || "Doe"}`
-    
     const mockData = dashboardMockData
     const analysisCardData = mockData?.analysis || []
     const totalResume = mockData?.resumeUpload?.total
