@@ -85,6 +85,8 @@ export default function UserDashboard() {
         syncUser();
     }, [user?.id, session?.id]);
 
+    console.log("registerd", localStorage.getItem('userRegistered'), "registeredId", localStorage.getItem('registeredId'))
+
     if(!isLoaded) return <div className="grid gap-2 place-content-center h-screen w-screen">{loading}</div>
 
     const fullName = `${user?.firstName || "John"} ${user?.lastName || "Doe"}`
