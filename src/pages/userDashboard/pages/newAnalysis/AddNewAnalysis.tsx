@@ -9,6 +9,7 @@ import AnalyzeButton from './components/AnalyzeButton';
 import AnalysisProgressModal from './components/AnalysisProgressModal';
 import HeaderUserDashboard from '../../../../components/Header.UserDashboard';
 import usePost from '../../../../hooks/Post';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ResumeUploadResponse {
     success: boolean;
@@ -53,6 +54,7 @@ interface AnalysisResponse {
 export default function AddNewAnalysis() {
     const token = localStorage.getItem('careerOsUserToken')
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
     // State Resume
     const [activeTab, setActiveTab] = useState<'resume' | 'jobDescription'>('resume');
     const [resumeFile, setResumeFile] = useState<File | null>(null);
@@ -213,6 +215,7 @@ export default function AddNewAnalysis() {
 
             if (analysisId) {
                 setCompletedReportId(analysisId);
+                queryClient.invalidateQueries({queryKey: ['resumes'],});
             } else {
                 throw new Error('Failed to retrieve analysis ID from response.');
             }

@@ -19,7 +19,7 @@ export default function UserDashboard() {
     const {isLoaded, user} = useUser()
     const {register, loading: RegisterLoading, error:formError} = useRegisterUser('api/auth/register')
     const {resumes, loading:getAllResumeLoading, error:getAllResumeError} = useGetAllResume('resume/all')
-
+    
     const registerRef = useRef(register)
     registerRef.current = register
 
