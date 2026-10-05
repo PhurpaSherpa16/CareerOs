@@ -1,25 +1,36 @@
 import { Card } from '../../../../../components/Card.UserDashboard';
 import Icons from '../../../../../utils/Icons';
-import { FiAward} from 'react-icons/fi';
+import { FiAward } from 'react-icons/fi';
 import ResumePreview from './ResumePreview';
 import { Link } from 'react-router-dom';
-import { dashboardMockData } from '../../../../../data/userDashboard.mock';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import AnalysisCard from '../../../../../components/ui/AnalysisCard';
 import { formatDistanceToNow } from 'date-fns';
 import JobSortDropdown from '../../job/components/JobSortDropdown';
+import useGetAllResume from '../../../../../hooks/getAllResume.hook';
 
-export default function ResumeList() {
-    const resumesList: any[] = dashboardMockData.resumes || [];
+interface ResumeListProps {
+    onOpenUploadModal?: () => void;
+}
+
+export default function ResumeList({ onOpenUploadModal }: ResumeListProps) {
+    const { resumes, loading: getAllResumeLoading } = useGetAllResume('resume/all');
+    const resumesList: any[] = resumes || [];
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeResumeId, setActiveResumeId] = useState<string>(resumesList.length > 0 ? resumesList[0].id : []);
+    const [activeResumeId, setActiveResumeId] = useState<string>('');
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 1
+    const totalPages = 1;
     const [copied, setCopied] = useState(false);
 
     const [sortBy, setSortBy] = useState<any>('newest');
-    
-    
+
+    useEffect(() => {
+        if (resumesList.length > 0) {
+            if (!activeResumeId || !resumesList.some((r) => r.id === activeResumeId)) {
+                setActiveResumeId(resumesList[0].id);
+            }
+        }
+    }, [resumesList, activeResumeId]);
 
     const displayedResumes = useMemo(() => {
         let result = [...resumesList];
@@ -29,8 +40,8 @@ export default function ResumeList() {
             const query = searchQuery.toLowerCase();
 
             result = result.filter((resume) => {
-                const titleMatch = (resume.title || '').toLowerCase().includes(query);
-                const nameMatch = (resume.name || '').toLowerCase().includes(query);
+                const titleMatch = (resume.title || resume.fileName || '').toLowerCase().includes(query);
+                const nameMatch = (resume.name || resume.fileName || '').toLowerCase().includes(query);
                 const summaryMatch = (resume.summary || '').toLowerCase().includes(query);
 
                 return titleMatch || nameMatch || summaryMatch;
@@ -41,12 +52,12 @@ export default function ResumeList() {
         if (sortBy === 'newest') {
             result.sort(
                 (a, b) =>
-                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                    new Date(b.date || b.createdAt || 0).getTime() - new Date(a.date || a.createdAt || 0).getTime()
             );
         } else if (sortBy === 'oldest') {
             result.sort(
                 (a, b) =>
-                    new Date(a.date).getTime() - new Date(b.date).getTime()
+                    new Date(a.date || a.createdAt || 0).getTime() - new Date(b.date || b.createdAt || 0).getTime()
             );
         } else if (sortBy === 'highestAts') {
             result.sort(
@@ -60,26 +71,57 @@ export default function ResumeList() {
             );
         }
 
-        return result.length > 0 ? result : [] ;
+        return result;
     }, [resumesList, searchQuery, sortBy]);
-    
-    const activeResumedata = dashboardMockData?.resumes.find((item: any) => item.id === activeResumeId)
+
+    const activeResumedata = resumesList.find((item: any) => item.id === activeResumeId) || (resumesList.length > 0 ? resumesList[0] : null);
+
+    const formattedActiveResume = useMemo(() => {
+        if (!activeResumedata) return null;
+        let structured = activeResumedata.structuredText;
+        if (typeof structured === 'string') {
+            try {
+                structured = JSON.parse(structured);
+            } catch {
+                structured = null;
+            }
+        }
+        if (structured) {
+            return {
+                ...activeResumedata,
+                name: structured.contact?.name || activeResumedata.name || activeResumedata.fileName || 'Candidate',
+                email: structured.contact?.email || activeResumedata.email,
+                phone: structured.contact?.phone || activeResumedata.phone,
+                github: structured.contact?.github || activeResumedata.github,
+                linkedin: structured.contact?.linkedin || activeResumedata.linkedin,
+                summary: structured.summary || activeResumedata.summary,
+                skills: structured.skills || activeResumedata.skills,
+                projects: structured.projects || activeResumedata.projects,
+                rawText: activeResumedata.rawText,
+                date: activeResumedata.date || activeResumedata.createdAt,
+            };
+        }
+        return activeResumedata;
+    }, [activeResumedata]);
 
     const handleSelectResume = (resumeId: string) => {
-    setActiveResumeId(resumeId);
+        setActiveResumeId(resumeId);
     };
 
     // Copy raw text handler
     const handleCopyRawText = () => {
-    if (!activeResumedata) return;
-        const rawText = activeResumedata;
-        navigator.clipboard.writeText(JSON.stringify(rawText));
+        if (!activeResumedata) return;
+        const textToCopy = activeResumedata.rawText
+            ? activeResumedata.rawText
+            : JSON.stringify(formattedActiveResume || activeResumedata, null, 2);
+        navigator.clipboard.writeText(textToCopy);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
-
-    const activeResumeDate = activeResumedata?.date ? formatDistanceToNow(new Date(activeResumedata.date), { addSuffix: true }) : 'N/A';
+    const activeResumeDate = (activeResumedata?.date || activeResumedata?.createdAt)
+        ? formatDistanceToNow(new Date(activeResumedata.date || activeResumedata.createdAt), { addSuffix: true })
+        : 'N/A';
     
 
   return (
@@ -111,12 +153,30 @@ export default function ResumeList() {
                     </div>
                 </div>
 
-                {displayedResumes.length === 0 || !displayedResumes ? (
+                {getAllResumeLoading ? (
+                    <div className="py-12 text-center text-slate-400 space-y-3">
+                        <Icons name="analyze" size="md" className="animate-spin text-(--primaryBlue) mx-auto" />
+                        <p className="text-xs">Loading resumes...</p>
+                    </div>
+                ) : displayedResumes.length === 0 ? (
                     <div className="py-12 text-center text-slate-400 space-y-2">
-                        <p className="text-xs">No resumes found matching your search.</p>
-                        <button type="button" onClick={() => setSearchQuery('')} className="text-xs font-semibold text-(--primaryBlue) underline cursor-pointer">
-                            Reset search
-                        </button>
+                        <p className="text-xs">
+                            {searchQuery ? 'No resumes found matching your search.' : 'No uploaded resumes yet.'}
+                        </p>
+                        {searchQuery ? (
+                            <button type="button" onClick={() => setSearchQuery('')} className="text-xs font-semibold text-(--primaryBlue) underline cursor-pointer">
+                                Reset search
+                            </button>
+                        ) : onOpenUploadModal ? (
+                            <button
+                                type="button"
+                                onClick={onOpenUploadModal}
+                                className="text-xs font-semibold text-(--primaryBlue) hover:underline cursor-pointer inline-flex items-center gap-1"
+                            >
+                                <Icons name="upload" size="xs" />
+                                Upload your first resume
+                            </button>
+                        ) : null}
                     </div>
                 ) : (
                     <div className="space-y-4">
@@ -128,10 +188,10 @@ export default function ResumeList() {
                             : 'hover:bg-(--lightBlue) border border-(--primaryBlue)/10'
                             }`}>
                             <AnalysisCard 
-                            jobTitle={resume.title || resume.name}
-                            ats={resume.atsScore}
-                            company={resume.name || 'Resume PDF'}
-                            date={resume.date}
+                            jobTitle={resume.title || resume.fileName || 'Resume'}
+                            ats={resume.atsScore ?? 0}
+                            company={resume.name || resume.fileName || 'Resume PDF'}
+                            date={resume.date || resume.createdAt}
                             iconName="resume"
                             onPreview={() => handleSelectResume(resume.id)}
                             />
@@ -171,9 +231,9 @@ export default function ResumeList() {
                                 <Icons name="resume" size="md" />
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-slate-900">{activeResumedata.title}</h3>
+                                <h3 className="text-base font-bold text-slate-900">{activeResumedata.title || activeResumedata.fileName || 'Resume'}</h3>
                                 <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                                <span className="font-mono text-slate-600">{activeResumedata.name}</span>
+                                <span className="font-mono text-slate-600">{activeResumedata.name || activeResumedata.fileName || 'Resume.pdf'}</span>
                                 </div>
                             </div>
                             </div>
@@ -182,7 +242,7 @@ export default function ResumeList() {
                                 <div className='flex items-center gap-3'>
                                     <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                                         <FiAward className="w-3.5 h-3.5" />
-                                        {activeResumedata.atsScore} ATS Score
+                                        {activeResumedata.atsScore ?? 0} ATS Score
                                     </span>
 
                                     <button type="button" onClick={handleCopyRawText} className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer border border-slate-200">
@@ -207,13 +267,13 @@ export default function ResumeList() {
                         </div>
 
                         <div className="w-full max-h-125 min-h-96 overflow-y-auto bg-slate-50 rounded-xl p-4 border border-slate-200 shadow-inner">
-                            <ResumePreview tempData={activeResumedata}/>
+                            <ResumePreview tempData={formattedActiveResume}/>
                         </div>
                     </div>
 
                     <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
                     <div className="text-xs text-slate-500 font-medium">
-                        Selected: <span className="font-semibold text-slate-800">{activeResumedata.title}</span>
+                        Selected: <span className="font-semibold text-slate-800">{activeResumedata.title || activeResumedata.fileName || 'Resume'}</span>
                     </div>
 
                     <div className="flex items-center gap-3">
@@ -228,7 +288,13 @@ export default function ResumeList() {
                         View Report
                         </Link>
 
-                        <a href="/resume.pdf" download={activeResumedata.name || 'Resume.pdf'} className="inline-flex items-center gap-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs">
+                        <a 
+                            href={activeResumedata.fileUrl || "/resume.pdf"} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            download={activeResumedata.fileName || activeResumedata.name || 'Resume.pdf'} 
+                            className="inline-flex items-center gap-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
+                        >
                         <Icons name='download'/>
                         Download
                         </a>
