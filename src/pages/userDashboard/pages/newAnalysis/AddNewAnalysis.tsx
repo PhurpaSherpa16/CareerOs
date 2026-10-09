@@ -267,20 +267,20 @@ export default function AddNewAnalysis() {
                     <HeaderUserDashboard  title="New Analysis" subTitle="Upload your resume and provide a target job description to get instant ATS optimization and matching feedback." />
 
                     {/* Step Badges + Ready For Analysis Quick Scroll Button */}
-                    <div className="lg:flex hidden items-center w-fit gap-2 self-start sm:self-auto bg-white p-1.5 rounded-xl border border-slate-200 flex-wrap">
+                    <div className="lg:flex hidden items-center w-fit gap-2 self-start sm:self-auto bg-white p-1.5 rounded-xl border border-slate-200">
                         <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${isResumeUploaded ? 'bg-green-200 text-green-900' : 'bg-slate-200 text-slate-400 shadow-xs'}`}>
                             <span className={`w-4 h-4 rounded-full ${isResumeUploaded ? 'bg-green-600' : 'bg-slate-400'} text-white text-[9px] flex items-center justify-center font-bold`}> 1 </span>
                             Resume
                         </span>
                         <span className={`${isJobDescriptionAdded ? 'text-green-600' : 'text-slate-300'} font-bold`}>→</span>
-                        <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${isJobDescriptionAdded ? 'bg-green-200 text-green-900' : 'bg-slate-200 text-slate-400 shadow-xs'  }`}>
+                        <span className={`px-2.5 py-1 truncate rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${isJobDescriptionAdded ? 'bg-green-200 text-green-900' : 'bg-slate-200 text-slate-400 shadow-xs'  }`}>
                             <span className={`w-4 h-4 rounded-full ${isJobDescriptionAdded ? 'bg-green-600' : 'bg-slate-400'} text-white text-[9px] flex items-center justify-center font-bold`}>2</span>
                             Job Description
                         </span>
                         <span className={`${isJobDescriptionAdded ? 'text-green-600' : 'text-slate-300'} font-bold`}>→</span>
                         {/* Ready for Analysis Button */}
                         <button type="button" disabled={!isReadyToAnalyze || isAnalyzing} onClick={scrollToAnalyzeButton}
-                            className={`px-3 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${isReadyToAnalyze && !isAnalyzing
+                            className={`px-3 py-1 truncate rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${isReadyToAnalyze && !isAnalyzing
                                     ? 'bg-(--primaryBlue) hover:bg-blue-700 text-white shadow-sm cursor-pointer active:scale-95'
                                     : 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed'
                                 }`}>
@@ -300,11 +300,7 @@ export default function AddNewAnalysis() {
                             <span className="font-bold">Error:</span>
                             <span>{analysisErrorMsg}</span>
                         </div>
-                        <button
-                            type="button"
-                            onClick={() => setAnalysisErrorMsg(null)}
-                            className="text-rose-500 hover:text-rose-800 text-xs font-bold underline cursor-pointer"
-                        >
+                        <button type="button" onClick={() => setAnalysisErrorMsg(null)} className="text-rose-500 hover:text-rose-800 text-xs font-bold underline cursor-pointer">
                             Dismiss
                         </button>
                     </div>
