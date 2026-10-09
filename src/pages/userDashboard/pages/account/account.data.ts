@@ -8,37 +8,43 @@ export const mockUser: UserProfile = {
   avatarUrl: null,
 };
 
-// ─── AI Models available ─────────────────────────────────────────────────────
-export const aiModels: AIModel[] = [
-  {
-    id: "gpt-4o-mini",
-    name: "GPT‑4o Mini",
-    description: "Fast & efficient for quick analysis",
+// ─── Format backend AI model to UI AIModel ───────────────────────────────────
+export const formatAiModel = (item: {
+  id: string;
+  model: string;
+  modelProvider: string;
+}): AIModel => {
+  const normalizedModel = item.model.toLowerCase();
+
+  let name = item.model;
+  let description = `Powered by ${item.modelProvider}`;
+  let icon = "🤖";
+
+  if (normalizedModel.includes("openrouter")) {
+    name = "OpenRouter Free";
+    description = "Fast, efficient AI model via OpenRouter";
+    icon = "⚡";
+  } else if (normalizedModel.includes("deepseek")) {
+    name = "DeepSeek V4 Flash";
+    description = "High precision, fast deep-reasoning model";
+    icon = "🧠";
+  } else if (normalizedModel.includes("qwen")) {
+    name = "Qwen 3.4B Instruct";
+    description = "Optimized instruction-tuned language model";
+    icon = "✨";
+  } else {
+    name = item.model.charAt(0).toUpperCase() + item.model.slice(1);
+    description = `Model provided by ${item.modelProvider}`;
+  }
+
+  return {
+    id: item.id, 
+    name,
+    description,
     tier: "free",
-    icon: "⚡",
-  },
-  {
-    id: "gpt-4o",
-    name: "GPT‑4o",
-    description: "Balanced speed and intelligence",
-    tier: "pro",
-    icon: "🧠",
-  },
-  {
-    id: "claude-sonnet",
-    name: "Claude Sonnet 4",
-    description: "Advanced reasoning & nuanced outputs",
-    tier: "pro",
-    icon: "✨",
-  },
-  {
-    id: "gemini-pro",
-    name: "Gemini 2.5 Pro",
-    description: "Google's flagship multimodal model",
-    tier: "enterprise",
-    icon: "💎",
-  },
-];
+    icon,
+  };
+};
 
 // ─── Subscription plans ──────────────────────────────────────────────────────
 export const subscriptionPlans: SubscriptionPlan[] = [
@@ -50,7 +56,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     period: "forever",
     features: [
       "5 resume analyses / month",
-      "GPT‑4o Mini model",
+      "OpenRouter Free model",
       "Basic ATS scoring",
       "Community support",
     ],
@@ -65,7 +71,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     badge: "Most Popular",
     features: [
       "Unlimited resume analyses",
-      "GPT‑4o & Claude Sonnet 4",
+      "DeepSeek & Qwen models",
       "AI cover letter generator",
       "Advanced skill-gap insights",
       "Priority support",
@@ -79,7 +85,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     period: "/ month",
     features: [
       "Everything in Pro",
-      "Gemini 2.5 Pro model",
+      "Custom fine-tuned models",
       "Team collaboration (up to 10)",
       "Custom branding & reports",
       "Dedicated account manager",

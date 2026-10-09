@@ -9,6 +9,8 @@ interface AIModelSelectorProps {
   currentTier: PlanTier;
   onSelect: (model: AIModel) => void;
   onUpgradeClick: () => void;
+  isUpdating?: boolean;
+  updatingModelId?: string | null;
 }
 
 export default function AIModelSelector({
@@ -17,6 +19,8 @@ export default function AIModelSelector({
   currentTier,
   onSelect,
   onUpgradeClick,
+  isUpdating = false,
+  updatingModelId = null,
 }: AIModelSelectorProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
@@ -38,7 +42,19 @@ export default function AIModelSelector({
 
   return (
     <Card>
-      <div className="p-5 sm:p-6 space-y-5">
+      <div className="relative p-5 sm:p-6 space-y-5">
+        {/* Blocker overlay when updating */}
+        {isUpdating && (
+          <div className="absolute inset-0 bg-white/75 backdrop-blur-[1px] rounded-2xl flex flex-col items-center justify-center z-20 transition-all duration-200">
+            <div className="flex items-center gap-3 px-4 py-2.5 bg-white border border-slate-200/90 rounded-xl shadow-lg shadow-slate-200/50 animate-fadeIn">
+              <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+              <span className="text-xs font-semibold text-slate-700">
+                Updating AI model preference...
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Section header */}
         <div className="flex items-center justify-between">
           <div>
@@ -58,22 +74,25 @@ export default function AIModelSelector({
           {models.map((model) => {
             const locked = isLocked(model);
             const isActive = model.id === activeModelId;
+            const isCurrentlySelecting = isUpdating && model.id === updatingModelId;
 
             return (
               <button
                 key={model.id}
                 type="button"
+                disabled={isUpdating || locked}
                 onClick={() => {
                   if (locked) {
                     onUpgradeClick();
-                  } else {
+                  } else if (!isUpdating) {
                     onSelect(model);
                   }
                 }}
                 onMouseEnter={() => setHoveredId(model.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 className={`
-                  relative text-left p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group
+                  relative text-left p-4 rounded-xl border-2 transition-all duration-200 group
+                  ${isUpdating ? "cursor-not-allowed" : "cursor-pointer"}
                   ${isActive
                     ? "border-indigo-500 bg-indigo-50/60 shadow-sm shadow-indigo-100"
                     : locked
@@ -82,9 +101,13 @@ export default function AIModelSelector({
                   }
                 `}
               >
-                {/* Lock / Check badge */}
+                {/* Lock / Check / Loading badge */}
                 <div className="absolute top-3 right-3">
-                  {isActive ? (
+                  {isCurrentlySelecting ? (
+                    <div className="p-1 bg-indigo-100 rounded-lg">
+                      <div className="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                    </div>
+                  ) : isActive ? (
                     <div className="p-1 bg-indigo-500 rounded-lg">
                       <FiCheck className="w-3 h-3 text-white" />
                     </div>
