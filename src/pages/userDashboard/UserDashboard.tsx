@@ -1,4 +1,4 @@
-import { useClerk, useUser } from "@clerk/react"
+import { useAuth, useClerk, useUser } from "@clerk/react"
 import { useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import useRegisterUser from "../../hooks/registerUser"
@@ -153,6 +153,18 @@ export default function UserDashboard() {
     const analysisData = mockData?.recentAnalyses || []
     const resumesData = mockData?.resumes || []
     const latestJobsData = mockData?.latestJobs || []
+
+    const {getToken} = useAuth()
+
+    useEffect(() => {
+    const fetchToken = async () => {
+        const token = await getToken({ template: 'careeros' });
+        console.log('Token:', token);
+    };
+
+    fetchToken();
+    }, [getToken]);
+    
 
     return (
         <div className="mainDiv">
